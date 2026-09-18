@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Entrada Juquita{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Qual é o seu perfil no EXAGERADO? 🕶️✨</h4>
+<p class="text-muted">Conta pra gente o seu ritmo de compras e garante seus pontos logo na chegada!</p>
+
+<form method="post" action="/entrada-juquita">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Esse item vai te acompanhar em qual ritmo?</label>
+        <select class="form-select" name="item_ritmo" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="acessibilidade_conforto">Acessibilidade / Conforto em 1º lugar</option>
+            <option value="modo_familia">Modo família com crianças ativadas 👶</option>
+            <option value="maratonando_compras">Maratonando as compras sem pausar o chopp 🍺</option>
+            <option value="colecionador_itens">Colecionador de itens exclusivos Exagerado</option>
+        </select>
+    </div>
+
+    <!--<div class="mb-3">
+        <label class="form-label">Sua faixa de idade</label>
+        <select class="form-select" name="faixa_etaria" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="geracao_z">Geração Z: Se não tá no TikTok/Reels, nem fiquei sabendo. (Até 24 anos)</option>
+            <option value="millennial">Millennial Cansado: Já venho de dipirona na bolsa e joelho estalando. (25 a 40 anos)</option>
+            <option value="experiente_chique">Experiente & Chique: Sei o valor do meu dinheiro e não aceito menos que o melhor. (41 a 55 anos)</option>
+            <option value="exagerado_classico">Exagerado Clássico: Aposentadoria é pra gastar com estilo! (56+ anos)</option>
+        </select>
+    </div>-->
+
+    <div class="mb-3">
+        <label class="form-label">Ficou sabendo do rolê por onde?</label>
+        <select class="form-select" name="ficou_sabendo_onde" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="redes_sociais_evento">Pelas Redes Sociais do evento, sou cronicamente online</option>
+            <option value="pelo_whatsapp">Pelo WhatsApp</option>
+            <option value="familia_amigos">Família e amigos</option>
+            <option value="ativacoes">Por meio das ativações</option>
+            <option value="influenciadores">Influenciadores digitais</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

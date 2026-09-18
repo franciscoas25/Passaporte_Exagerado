@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Estacionamento{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Como foi o seu corre até aqui? 🚗💨</h4>
+<p class="text-muted">Conta pra gente como você chegou no evento e garante mais pontos na conta!</p>
+
+<form method="post" action="/estacionamento">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Como você veio pro Exagerado?</label>
+        <select class="form-select" name="como_veio" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="carro_proprio">Carro próprio / Estacionamento</option>
+            <option value="app_mobilidade">Uber / App de Mobilidade</option>
+            <option value="transporte_publico">Transporte Público (Metrô / Ônibus)</option>
+            <option value="pe_bike_patinete">A pé / Bike / Patinete</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Quanto tempo levou no corre até chegar?</label>
+        <select class="form-select" name="quanto_tempo" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="menos_trinta_minutos">Menos de 30 min (vizinho do parque)</option>
+            <option value="trinta_a_uma_hora">30 min a 1 hora</option>
+            <option value="mais_de_uma_hora">Mais de 1 hora (respeita meu corre!)</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

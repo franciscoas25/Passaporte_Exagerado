@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Boas Vindas{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Que bom te ver por aqui! 👋✨</h4>
+<p class="text-muted">Diz aí qual é a sua vibe de hoje e garante mais pontos na conta!</p>
+
+<form method="post" action="/boas-vindas">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <!--<div class="mb-3">
+        <label class="form-label">Quem é você hoje no Exagerado?</label>
+        <select class="form-select" name="quem_eh_voce" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="caçador_de_marcas_fod4s">Caçador de marcas fod4s</option>
+            <option value="passeador_profissional_só_vim_acompanhar">Passeador profissional / Só vim acompanhar</option>
+            <option value="veio_comer_tomar_uma">Veio pra comer e tomar uma</option>
+            <option value="cansado_buscando_promoção">Cansado buscando promoção</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Qual é o seu foco principal hoje?</label>
+        <select class="form-select" name="qual_foco" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="roupas_e_calçados">Roupas e calçados</option>
+            <option value="casa_e_decoracao">Casa e decoração</option>
+            <option value="infantil_kids">Infantil / Kids</option>
+            <option value="gastronomia_e_entretenimento">Gastronomia e entretenimento</option>
+            <option value="outros_segmentos">Outros segmentos</option>
+        </select>
+    </div>-->
+
+    <div class="mb-3">
+        <label class="form-label">Qual é a sua região de origem?</label>
+        <select class="form-select" name="regiao" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="vizinho_parque">Vizinho do Parque (Moema, Vila Mariana, Jardins, Itaim)</option>
+            <option value="zona_sul">Outros bairros da Zona Sul</option>
+            <option value="zona_oeste_centro_zona_norte_zona_leste">Zona Oeste / Centro / Zona Norte / Zona Leste</option>
+            <option value="grande_sp_interior_outro_estado">Grande SP</option>
+            <option value="grande_sp_interior_outro_estado">Interior</option>
+            <option value="grande_sp_interior_outro_estado">Outro Estado</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

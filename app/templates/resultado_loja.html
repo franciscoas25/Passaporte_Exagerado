@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Resultado{% endblock %}
+
+{% block content %}
+{% if sucesso %}
+<div class="text-center">
+    <h4 class="mb-3">🎉 Boa!</h4>
+    <p class="fs-5">{{ mensagem }}</p>
+</div>
+{% elif ja_pontuou %}
+<div class="text-center">
+    <h4 class="mb-3">😄 Já te pegamos aqui!</h4>
+    <p class="text-muted">{{ mensagem }}</p>
+</div>
+{% else %}
+<div class="text-center">
+    <h4 class="mb-3">⚠️ Ops</h4>
+    <p class="text-muted">{{ mensagem }}</p>
+</div>
+{% endif %}
+{% endblock %}

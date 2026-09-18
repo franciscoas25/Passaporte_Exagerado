@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Cadastrar brinde{% endblock %}
+{% block content %}
+<a href="/admin" class="text-decoration-none text-muted small">← Voltar ao hub</a>
+<h4 class="mb-3">Cadastrar brinde</h4>
+<form method="post" action="/admin/brindes/nova">
+    <div class="mb-3">
+        <label class="form-label">Nome do brinde</label>
+        <input type="text" class="form-control" name="nome" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Custo em pontos</label>
+        <input type="number" class="form-control" name="custo_pontos" min="0" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Estoque</label>
+        <input type="number" class="form-control" name="estoque" min="0" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tipo</label>
+        <select class="form-select" name="tipo" required>
+            <option value="padrao">Padrão (limite 1 por pessoa, custa pontos)</option>
+            <option value="gratis">Grátis (exige todos formulários)</option>
+            <option value="periodo">Período (período cadastro 19 a 22)</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+</form>
+{% endblock %}

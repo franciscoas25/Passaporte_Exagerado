@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Lojas{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Hora das compras! 💳🛍️</h4>
+<p class="text-muted">Diz pra gente como tá sendo o rolê e garante mais pontos no passaporte!</p>
+
+<form method="post" action="/dentro-lojas">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Qual o melhor dia pra curtir?</label>
+        <select class="form-select" name="melhor_dia" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="quarta_feira">Quarta-feira</option>
+            <option value="quinta_feira">Quinta-feira</option>
+            <option value="sexta_feira">Sexta-feira</option>
+            <option value="sabado">Sábado</option>
+            <option value="domingo">Domingo</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Como tá pagando as compritas?</label>
+        <select class="form-select" name="forma_pagamento" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="pix">No PIX</option>
+            <option value="cartao_debito">Cartão de Débito</option>
+            <option value="cartao_credito">Cartão de Crédito</option>
+            <option value="dinheiro">Dinheiro</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

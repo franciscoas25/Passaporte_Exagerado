@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Lounge Vip{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Pausa VIP merecida! 🛋️✨</h4>
+<p class="text-muted">Aproveita o descanso, responde rapidinho e garante seus pontos VIP!</p>
+
+<form method="post" action="/vip-lounge">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Qual é a sua prioridade no Lounge VIP?</label>
+        <select class="form-select" name="prioridade" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="recarregar_bateria">Recarregar a bateria (minha e do celular)</option>
+            <option value="network_e_bons_drinks">Networking e bons drinks</option>
+            <option value="fazer_pausa_estrategica">Fazer uma pausa estratégica entre uma café e outro</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Quantas sacolas você planeja levar pra casa hoje?</label>
+        <select class="form-select" name="quantas_sacolas" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="um_a_tres">1 a 3 itens (compras pontuais)</option>
+            <option value="quatro_a_sete">4 a 7 itens (garimpo com sucesso)</option>
+            <option value="mais_de_oito">Mais de 8 (renovei o guarda-roupa/casa)</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

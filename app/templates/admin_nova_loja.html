@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Cadastrar loja{% endblock %}
+{% block content %}
+<a href="/admin" class="text-decoration-none text-muted small">← Voltar ao hub</a>
+<h4 class="mb-3 mt-2">Cadastrar loja</h4>
+<form method="post" action="/admin/lojas/nova">
+    <div class="mb-3">
+        <label class="form-label">Nome da loja</label>
+        <input type="text" class="form-control" name="nome" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Pontos por compra</label>
+        <input type="number" class="form-control" name="pontos_base" min="1" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+</form>
+{% endblock %}

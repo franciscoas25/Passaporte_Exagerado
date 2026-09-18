@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Saída Juquita{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Balanço das compras! 💸🛍️</h4>
+<p class="text-muted">Antes de ir embora, conta como foi o investimento no rolê e garanta seus pontos!</p>
+
+<form method="post" action="/saida-juquita">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">E o money? Qual sua renda?</label>
+        <select class="form-select" name="qual_renda" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="ate_mil">Até R$1.000,00</option>
+            <option value="entre_mil_e_tres_mil">Entre R$1.000,00 e R$3.000,00</option>
+            <option value="entre_tres_mil_e_seis_mil">Entre R$3.000,00 e R$6.000,00</option>
+            <option value="acima_de_seis_mil">Acima de R$6.000,00</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Quanto vc pretende gastar ou gastou nessa brincadeira?</label>
+        <select class="form-select" name="quanto_pretende_gastar" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="ate_duzentos">Até R$200,00</option>
+            <option value="entre_duzentos_e_seiscentos">Entre R$200,00 e R$600,00</option>
+            <option value="entre_seiscentos_e_mil_e_duzentos">Entre R$600,00 e R$1.200,00</option>
+            <option value="entre_mil_e_duzentos_e_mil_e_quinhentos">Entre R$1.200,00 e R$1.500,00</option>
+            <option value="acima_de_mil_e_quinhentos">Acima de R$1.500,00</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Veio com quem curtir o rolê?</label>
+        <select class="form-select" name="com_quem_veio" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="sozinho">Sozinho pq sou autossuficiente</option>
+            <option value="com_familia">Com a família, né bb</option>
+            <option value="com_amigos">Com meus amigos</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

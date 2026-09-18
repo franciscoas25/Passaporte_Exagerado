@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}NPS{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Sua opinião vale ouro! ⭐💬</h4>
+<p class="text-muted">Conta pra gente como foi sua experiência e ajuda a deixar a próxima edição ainda mais incrível!</p>
+
+<form method="post" action="/saida-nps">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label d-block">De 0 a 10, o quanto você recomendaria o Exagerado para um amigo?</label>
+        <div class="btn-group w-100 flex-wrap" role="group" aria-label="Escala de 0 a 10">
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-0" value="0" required>
+            <label class="btn btn-outline-secondary flex-fill" for="nps-0">0</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-1" value="1">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-1">1</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-2" value="2">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-2">2</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-3" value="3">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-3">3</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-4" value="4">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-4">4</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-5" value="5">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-5">5</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-6" value="6">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-6">6</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-7" value="7">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-7">7</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-8" value="8">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-8">8</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-9" value="9">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-9">9</label>
+
+            <input type="radio" class="btn-check" name="quanto_recomenda" id="nps-10" value="10">
+            <label class="btn btn-outline-secondary flex-fill" for="nps-10">10</label>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Qual foi o maior destaque do seu dia no Exagerado?</label>
+        <select class="form-select" name="maior_destaque" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="precos_descontos">Os preços e descontos</option>
+            <option value="estrutura_espaco">A estrutura e o espaço no Ibirapuera</option>
+            <option value="atendimento">O atendimento e a facilidade do evento</option>
+            <option value="variedade_marcas">A variedade de marcas</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Te vejo na próxima edição SP?</label>
+        <select class="form-select" name="te_vejo_proxima_edicao" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="com_certeza">Com certeza! Já me avisa pelo WhatsApp</option>
+            <option value="depende_data">Depende da data</option>
+            <option value="talvez">Talvez</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Deixe aqui o seu feedback geral, bb</label>
+        <input type="text" class="form-control" name="feedback" placeholder="Escreva o feedback aqui...">
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

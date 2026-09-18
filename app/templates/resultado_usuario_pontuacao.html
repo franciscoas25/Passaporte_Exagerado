@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Seus pontos{% endblock %}
+
+{% block content %}
+{% if sucesso and usuario %}
+<h4 class="mb-3">👤 {{ usuario.usuario_nome }}</h4>
+
+<div class="text-center my-4 p-3 bg-light rounded">
+    <p class="text-muted small mb-1">Saldo de pontos</p>
+    <p class="display-5 fw-bold mb-0">{{ usuario.pontos_atuais }}</p>
+</div>
+
+{% if usuario.lojas %}
+<h6 class="fw-bold mb-2">📍 Pontos conquistados</h6>
+<ul class="list-group mb-4">
+    {% for item in usuario.lojas %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ item.loja }}
+        <span class="fw-bold text-success">+{{ item.pontos }} pts</span>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if usuario.resgates %}
+<h6 class="fw-bold mb-2">🎁 Histórico de resgates</h6>
+<ul class="list-group mb-4">
+    {% for item in usuario.resgates %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ item.brinde }}
+        <span class="fw-bold text-danger">-{{ item.pontos }} pts</span>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if not usuario.lojas and not usuario.resgates %}
+<p class="text-muted text-center">
+    Você ainda não possui movimentações de pontos.
+</p>
+{% endif %}
+
+{% if usuario.formularios %}
+<h6 class="fw-bold mb-2">📝 Formulários</h6>
+<ul class="list-group mb-4">
+    {% for nome, respondido in usuario.formularios.items() %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ nome }}
+        {% if respondido %}
+        <span class="text-success">✅ Respondido</span>
+        {% else %}
+        <span class="text-muted">⬜ Pendente</span>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<a href="/usuario-pontuacao" class="btn btn-outline-primary w-100">
+    Nova consulta
+</a>
+
+{% else %}
+<h4 class="mb-3">⚠️ Ops</h4>
+<p class="text-muted">{{ mensagem }}</p>
+
+<a href="/usuario-pontuacao" class="btn btn-outline-primary w-100">
+    Tentar novamente
+</a>
+{% endif %}
+{% endblock %}
+

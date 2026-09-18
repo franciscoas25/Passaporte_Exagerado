@@ -1,0 +1,124 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    numero_cel VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    id_public VARCHAR(50) NOT NULL UNIQUE,
+    pontos_atuais INT NOT NULL DEFAULT 0,
+    aceite_marketing BOOLEAN NOT NULL DEFAULT FALSE
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS lojas (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    codigo_publico VARCHAR(50) NOT NULL UNIQUE,
+    nome VARCHAR(50) NOT NULL,
+    pontos_base INT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS pontuacoes (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id),
+    loja_id INT NOT NULL REFERENCES lojas(id),
+    pontos INT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (visitante_id, loja_id)
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_entrada_juquita (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    item_ritmo VARCHAR(50) NOT NULL,
+    faixa_etaria VARCHAR(50) NOT NULL,
+    ficou_sabendo_onde VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_lounge_vip (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    prioridade VARCHAR(50) NOT NULL,
+    quantas_sacolas VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS brindes (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    custo_pontos INT NOT NULL,
+    estoque INT NOT NULL,
+    tipo VARCHAR(20) NOT NULL DEFAULT 'padrao' CHECK (tipo IN ('padrao', 'gratis')),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS um_gratis_so ON brindes (tipo) WHERE tipo = 'gratis';
+
+CREATE TABLE IF NOT EXISTS resgates (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id),
+    brinde_id INT NOT NULL REFERENCES brindes(id),
+    pontos_debitados INT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unico_visitante_brinde UNIQUE (visitante_id, brinde_id)
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_acao_guerrilha (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    oque_trouxe VARCHAR(50) NOT NULL,
+    regiao VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_boas_vindas (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    quem_eh_voce VARCHAR(50) NOT NULL,
+    qual_foco VARCHAR(50) NOT NULL,
+    regiao VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_estacionamento (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    como_veio VARCHAR(50) NOT NULL,
+    quanto_tempo VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_cenografia (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    oque_mais_garimpou VARCHAR(50) NOT NULL,
+    qual_marca_deixou_louco VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_saida_juquita (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    qual_renda VARCHAR(50) NOT NULL,
+    quanto_pretende_gastar VARCHAR(50) NOT NULL,
+    com_quem_veio VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_dentro_lojas (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    melhor_dia VARCHAR(50) NOT NULL,
+    forma_pagamento VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS interacoes_saida_nps (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
+    quanto_recomenda INT NOT NULL,
+    maior_destaque VARCHAR(50) NOT NULL,
+    te_vejo_proxima_edicao VARCHAR(50) NOT NULL,
+    feedback VARCHAR(100),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

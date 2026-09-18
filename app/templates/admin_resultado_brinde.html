@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Resultado{% endblock %}
+{% block content %}
+{% if sucesso %}
+<h4 class="mb-3">✅ {{ brinde.nome }} cadastrado!</h4>
+<p class="text-muted">{{ brinde.custo_pontos }} pontos — {{ brinde.estoque }} unidades em estoque.</p>
+{% else %}
+<h4 class="mb-3">⚠️ {{ mensagem }}</h4>
+{% endif %}
+<a href="/admin/brindes/nova" class="btn btn-outline-primary w-100">Cadastrar outro</a>
+{% endblock %}

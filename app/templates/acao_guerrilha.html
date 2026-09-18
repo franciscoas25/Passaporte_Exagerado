@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Ação Guerrilha{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Achamos você no parque! 🌳🎯</h4>
+<p class="text-muted">Conta pra gente o que te trouxe aqui e garanta seus pontos no Exagerado!</p>
+
+<form method="post" action="/acao-guerrilha">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">O que te trouxe ao Ibirapuera hoje?</label>
+        <select class="form-select" name="oque_trouxe" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="trabalho_treino_exercicio">Vim pro corre do trabalho / Treino / Exercício</option>
+            <option value="passeio_piquenique_relaxar">Passeio, piquenique ou relaxar no parque</option>
+            <option value="exagerado">Vim especialmente para o Exagerado! 🛍️</option>
+            <option value="familia_pet">Passeando com pet / família</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Qual é a sua região de origem?</label>
+        <select class="form-select" name="regiao" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="vizinho_parque">Vizinho do Parque (Moema, Vila Mariana, Jardins, Itaim)</option>
+            <option value="zona_sul">Outros bairros da Zona Sul</option>
+            <option value="zona_oeste_centro_zona_norte_zona_leste">Zona Oeste / Centro / Zona Norte / Zona Leste</option>
+            <option value="grande_sp_interior_outro_estado">Grande SP / Interior / Outro Estado</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

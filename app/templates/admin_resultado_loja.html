@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Loja cadastrada{% endblock %}
+{% block content %}
+{% if sucesso %}
+<h4 class="mb-3">✅ {{ loja.nome }} cadastrada!</h4>
+<p class="text-muted">Imprime esse QR e cola no estande — é ele que o cliente vai escanear.</p>
+<div class="text-center my-4">
+    <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={{ url_loja | urlencode }}"
+        alt="QR da loja"
+        class="img-fluid"
+    >
+    <p class="small text-muted mt-2">{{ url_loja }}</p>
+</div>
+<a href="/admin/lojas/nova" class="btn btn-outline-primary w-100">Cadastrar outra loja</a>
+{% else %}
+<h4 class="mb-3">⚠️ {{ mensagem }}</h4>
+{% endif %}
+{% endblock %}

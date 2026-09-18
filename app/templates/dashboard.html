@@ -1,0 +1,571 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Dashboard - Passaporte EXAGERADO{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-3">
+
+    <!-- CABEÇALHO -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+        <div>
+            <h4 class="mb-1">Dashboard Administrativo 📊</h4>
+            <p class="text-muted mb-0">
+                Gerencie clientes, lojas e brindes do Passaporte EXAGERADO.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- INDICADORES -->
+    <!-- ========================================================= -->
+
+    <div class="row g-3 mb-4">
+
+        <!-- CLIENTES -->
+        <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-muted">Clientes cadastrados</small>
+                            <h3 class="fw-bold mb-0 text-center">{{total_visitantes}}</h3>
+                        </div>
+
+                        <div class="fs-1">
+                            👥
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOJAS -->
+        <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-muted">Lojas cadastradas</small>
+                            <h3 class="fw-bold mb-0 text-center">{{total_lojas}}</h3>
+                        </div>
+
+                        <div class="fs-1">
+                            🏪
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BRINDES -->
+        <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-muted">Brindes cadastrados</small>
+                            <h3 class="fw-bold mb-0 text-center">{{total_brindes}}</h3>
+                        </div>
+
+                        <div class="fs-1">
+                            🎁
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- CLIENTES -->
+    <!-- ========================================================= -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-header bg-white border-0 pt-3">
+
+            <div class="d-flex flex-column flex-md-row
+                        justify-content-between align-items-md-center">
+
+                <div>
+                    <h5 class="fw-bold mb-1">👥 Clientes</h5>
+                    <p class="text-muted small mb-0">
+                        Consulte os participantes cadastrados no sistema.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <!-- FILTROS -->
+
+            <form method="post" action="/visitante/pesquisa" class="row g-2 mb-3">
+
+                <div class="col-12 col-md-5">
+                    <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="nome"
+                        placeholder="Pesquisar por nome, celular, e-mail ou chave">
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <input
+                        type="date"
+                        class="form-control form-control-sm"
+                        name="data"
+                        aria-label="Pesquisar por data">
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <button type="submit"
+                            class="btn btn-outline-primary btn-sm w-100">
+                        🔎 Pesquisar
+                    </button>
+                </div>
+
+            </form>
+
+
+            <!-- TABELA -->
+
+            <p>Total de visitantes: <strong>{{ visitantes | length }}</strong></p>
+            
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Celular</th>
+                            <th>E-mail</th>
+                            <th>Chave</th>
+                            <th>Marketing</th>                            
+                            <th class="text-end">Pontuação</th>
+                            <th>Cadastro</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for visitante in visitantes %}
+
+                        <tr>
+
+                            <td>
+                                {{ visitante.nome }}
+                            </td>
+
+                            <td>
+                                {{ visitante.numero_cel }}
+                            </td>
+
+                            <td>
+                                {{ visitante.email }}
+                            </td>
+
+                            <td>
+                                <code>{{ visitante.id_public }}</code>
+                            </td>
+
+                            <td class="text-center">
+
+                                {% if visitante.aceite_marketing %}
+
+                                    <span class="badge text-bg-success">
+                                        Sim
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge text-bg-secondary">
+                                        Não
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td class="text-center">
+                                {{ visitante.pontos_atuais }}
+                            </td>
+                            
+                            <td>
+                                {{ visitante.created_at }}
+                            </td>
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="7"
+                                class="text-center text-muted py-4">
+
+                                Nenhum visitante encontrado.
+
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- PAGINAÇÃO -->
+
+        <div class="card-footer bg-white border-0">
+
+            <nav>
+                <ul class="pagination pagination-sm justify-content-end mb-0">
+
+                    <li class="page-item disabled">
+                        <a class="page-link">Anterior</a>
+                    </li>
+
+                    <li class="page-item active">
+                        <a class="page-link">1</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link">2</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link">3</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link">Próxima</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- LOJAS -->
+    <!-- ========================================================= -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-header bg-white border-0 pt-3">
+
+            <div class="d-flex flex-column flex-md-row
+                        justify-content-between align-items-md-center">
+
+                <div>
+                    <h5 class="fw-bold mb-1">🏪 Lojas</h5>
+                    <p class="text-muted small mb-0">
+                        Consulte as lojas participantes da experiência.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <!-- PESQUISA -->
+
+            <form method="post" action="/loja/pesquisa"
+                  class="row g-2 mb-3">
+
+                <div class="col-12 col-md-8">
+
+                    <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="nome"
+                        placeholder="Pesquisar por código ou nome da loja">
+
+                </div>
+
+                <div class="col-12 col-md-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-outline-primary btn-sm w-100">
+
+                        🔎 Pesquisar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- TABELA -->
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+
+                        <tr>
+                            <th class="text-center">Nome da Loja</th>
+                            <th class="text-center">Código Público</th>
+                            <th class="text-center">Pontos Base</th>
+                            <th class="text-center">Cadastro</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for loja in lojas %}
+
+                        <tr>
+
+                            <td class="text-center">
+                                {{ loja.nome }}
+                            </td>
+
+                            <td class="text-center">
+                                <code>{{ loja.codigo_publico }}</code>
+                            </td>
+
+                            <td class="text-center">
+                                {{ loja.pontos_base }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ loja.created_at }}
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="4"
+                                class="text-center text-muted py-4">
+
+                                Nenhuma loja encontrada.
+
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- BRINDES -->
+    <!-- ========================================================= -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-header bg-white border-0 pt-3">
+
+            <div class="d-flex flex-column flex-md-row
+                        justify-content-between align-items-md-center">
+
+                <div>
+
+                    <h5 class="fw-bold mb-1">🎁 Brindes</h5>
+
+                    <p class="text-muted small mb-0">
+                        Consulte os brindes disponíveis para resgate.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <!-- PESQUISA -->
+
+            <form method="post" action="/admin/brinde/listar"
+                  class="row g-2 mb-3">
+
+                <div class="col-12 col-md-5">
+
+                    <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="nome"
+                        placeholder="Pesquisar por nome">
+
+                </div>
+
+                <div class="col-12 col-md-3">
+
+                    <select
+                        class="form-select form-select-sm"
+                        name="tipo">
+
+                        <option value="">Todos os tipos</option>
+
+                        <option value="brinde">
+                            Brinde
+                        </option>
+
+                        <option value="beneficio">
+                            Benefício
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-12 col-md-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-outline-primary btn-sm w-100">
+
+                        🔎 Pesquisar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- TABELA -->
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+
+                        <tr>
+                            <th class="text-center">Nome</th>
+                            <th class="text-center">Custo em Pontos</th>
+                            <th class="text-center">Estoque</th>
+                            <th class="text-center">Tipo</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for brinde in brindes %}
+
+                        <tr>
+
+                            <td class="text-center">
+                                {{ brinde.nome }}
+                            </td>
+
+                            <td class="text-center">
+                                <span>
+                                    {{ brinde.custo_pontos }}
+                                </span>
+                                pts
+                            </td>
+
+                            <td class="text-center">
+
+                                {% if brinde.estoque > 10 %}
+
+                                    <span class="badge text-bg-success">
+                                        {{ brinde.estoque }}
+                                    </span>
+
+                                {% elif brinde.estoque > 0 and brinde.estoque <= 10 %}
+
+                                    <span class="text-center badge text-bg-secondary">
+                                        {{ brinde.estoque }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge text-bg-danger">
+                                        Esgotado
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td class="text-center">
+
+                                {% if brinde.tipo == 'gratis' %}
+                                
+                                <span class="badge text-bg-danger border">
+                                    {{ brinde.tipo }}
+                                </span>
+
+                                {% elif brinde.tipo == 'padrao' %}
+
+                                <span class="badge text-bg-success border">
+                                    {{ brinde.tipo }}
+                                </span>
+
+                                {% else %}
+
+                                <span class="badge text-bg-secondary border">
+                                    {{ brinde.tipo }}
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="5"
+                                class="text-center text-muted py-4">
+
+                                Nenhum brinde encontrado.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

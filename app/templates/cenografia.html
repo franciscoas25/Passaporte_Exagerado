@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Cenografia{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Modo garimpo ativado! 🔍🛍️</h4>
+<p class="text-muted">Conta pra gente seus achados favoritos e garanta mais pontos no evento!</p>
+
+<form method="post" action="/cenografia">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">O que você mais gostou de garimpar até agora?</label>
+        <select class="form-select" name="oque_mais_garimpou" required>
+            <option value="" disabled selected>Escolhe uma opção</option>
+            <option value="marcas_famosas_desconto">Marcas famosas com desconto real</option>
+            <option value="achadinhos_nao_esperados">Achadinhos que nem esperava encontrar</option>
+            <option value="experiencia">A experiência / Espaço gastronômico</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Qual marca te deixa louco no rolê?</label>
+        <input type="text" class="form-control" name="qual_marca_deixou_louco" placeholder="Escreva a marca aqui..." required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+{% endblock %}

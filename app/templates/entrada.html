@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block title %}Passaporte EXAGERADO{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Bem-vindo(a) ao EXAGERADO! 🎉</h4>
+<p class="text-muted">Preenche rapidinho pra liberar seu Passaporte EXAGERADO.</p>
+
+<form method="post" action="/entrada">
+    <div class="mb-3">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" name="nome" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">WhatsApp</label>
+        <input type="tel" class="form-control" name="telefone" placeholder="(27) 99999-9999" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-control" name="email" required>
+    </div>
+
+    <!-- CHECKBOX OBRIGATÓRIO (TERMOS E PRIVACIDADE) -->
+    <div class="mb-2 form-check text-start">
+        <input type="checkbox" class="form-check-input" id="aceiteTermos" name="aceite_termos" value="true" required>
+        <label class="form-check-label small" for="aceiteTermos">
+            Li e aceito o <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modalTermos">Regulamento e Aviso de Privacidade</a>.
+        </label>
+    </div>
+
+    <!-- CHECKBOX OPCIONAL (MARKETING - ITEM 31) -->
+    <div class="mb-3 form-check text-start">
+        <input type="checkbox" class="form-check-input" id="aceiteMarketing" name="aceite_marketing" value="true">
+        <label class="form-check-label small text-muted" for="aceiteMarketing">
+            Quero receber novidades, ofertas e comunicações promocionais do Exagerado.
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Quero meu Passaporte</button>
+</form>
+
+<!-- MODAL LGPD COMPLETO COM TEXTO NA ÍNTEGRA -->
+<div class="modal fade" id="modalTermos" tabindex="-1" aria-labelledby="modalTermosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-6 fw-bold" id="modalTermosLabel">Regulamento de Participação e Aviso de Privacidade</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body text-start small" style="max-height: 65vh; overflow-y: auto;">
+                <div class="mb-3">
+                    <p class="fw-bold mb-1">REGULAMENTO DE PARTICIPAÇÃO E AVISO DE PRIVACIDADE</p>
+                    <p class="fw-bold mb-1">PROGRAMA DE GAMIFICAÇÃO E JORNADA DE COMPRA — EXAGERADO</p>
+                    <p class="text-muted mb-1">Versão: 1.0</p>
+                    <p class="text-muted mb-1">Evento: EXAGERADO</p>
+                    <p class="text-muted mb-1">Organizadora/Controladora: MEU EXAGERADO NEGÓCIOS E VAREJO LTDA</p>
+                    <p class="text-muted mb-1">CNPJ: 31.132.191/0001-79[cite: 1]</p>
+                    <p class="text-muted mb-1">Endereço: Rua Braulina Baptista Lopes, 150[cite: 1]</p>
+                    <p class="text-muted mb-0">Canal para assuntos relacionados à LGPD: VENDAS@MEUEXAGERADO.COM.BR[cite: 1]</p>
+                </div>
+                <hr>
+
+                <h6 class="fw-bold text-uppercase">PARTE I — REGULAMENTO DA GAMIFICAÇÃO[cite: 1]</h6>
+                
+                <p class="fw-bold mb-1">1. OBJETO[cite: 1]</p>
+                <p>1.1. O presente Regulamento estabelece as condições de participação no programa de gamificação e jornada de compra do EXAGERADO, iniciativa criada para proporcionar aos participantes uma experiência interativa durante o período de realização do evento.[cite: 1]<br>
+                1.2. A experiência permitirá que participantes cadastrados realizem determinadas ações disponibilizadas pela organização, acumulem pontos e utilizem a pontuação obtida para realizar o resgate de brindes e benefícios disponibilizados pela organização, observadas as condições deste Regulamento.[cite: 1]<br>
+                1.3. A participação na experiência é gratuita e está condicionada ao cumprimento das regras estabelecidas neste Regulamento.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">2. QUEM PODE PARTICIPAR[cite: 1]</p>
+                <p>2.1. Poderão participar da experiência pessoas físicas maiores de 18 (dezoito) anos, mediante realização do cadastro na página oficial disponibilizada pela organização.[cite: 1]<br>
+                2.2. A participação é individual e vinculada aos dados utilizados no cadastro.[cite: 1]<br>
+                2.3. Cada participante será responsável pela veracidade, atualização e segurança das informações fornecidas no momento do cadastro.[cite: 1]<br>
+                2.4. A organização poderá, a qualquer momento, realizar procedimentos de validação destinados a garantir a integridade da experiência e impedir duplicidades, fraudes ou utilização indevida da plataforma.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">3. CADASTRO[cite: 1]</p>
+                <p>3.1. Para participar, o interessado deverá realizar seu cadastro por meio da página inicial disponibilizada pela organização.[cite: 1]<br>
+                3.2. Para fins de participação, poderão ser solicitados os seguintes dados pessoais: Nome, Telefone e E-mail.[cite: 1]<br>
+                3.3. Os dados fornecidos deverão ser verdadeiros, completos e atualizados.[cite: 1]<br>
+                3.4. O participante é responsável pela guarda e pelo uso dos meios de acesso associados ao seu cadastro.[cite: 1]<br>
+                3.5. O cadastro é pessoal e não poderá ser transferido para terceiros.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">4. FUNCIONAMENTO DA GAMIFICAÇÃO[cite: 1]</p>
+                <p>4.1. Após a realização do cadastro, o participante poderá realizar as ações disponibilizadas pela organização durante o período de realização do evento.[cite: 1]<br>
+                4.2. As ações elegíveis poderão incluir, entre outras: a) resposta a pesquisas disponibilizadas pela organização; b) leitura/interação com QR Codes disponibilizados nas lojas expositoras; c) participação em ações especiais promovidas pela organização; d) outras atividades expressamente indicadas na plataforma ou nos espaços do evento.[cite: 1]<br>
+                4.3. Cada ação poderá possuir uma pontuação específica, previamente informada ao participante ou divulgada pela organização no momento de sua disponibilização.[cite: 1]<br>
+                4.4. A organização poderá criar, alterar ou disponibilizar ações especiais de pontuação durante o período do evento, desde que as respectivas condições sejam comunicadas aos participantes.[cite: 1]<br>
+                4.5. A pontuação atribuída será registrada no sistema utilizado para operacionalização da experiência.[cite: 1]<br>
+                4.6. A pontuação não possui valor monetário, não constitui crédito financeiro e não poderá ser convertida em dinheiro.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">5. PONTUAÇÃO[cite: 1]</p>
+                <p>5.1. Os pontos serão atribuídos exclusivamente às ações consideradas válidas pelo sistema e pela organização.[cite: 1]<br>
+                5.2. A organização poderá estabelecer diferentes pontuações para diferentes ações, categorias, lojas, pesquisas, interações ou desafios.[cite: 1]<br>
+                5.3. A pontuação poderá ser consultada pelo participante por meio da plataforma disponibilizada para a experiência.[cite: 1]<br>
+                5.4. Pontuações obtidas mediante falha técnica, duplicidade, manipulação, fraude ou qualquer outra forma de utilização indevida poderão ser analisadas e invalidadas pela organização.[cite: 1]<br>
+                5.5. A organização poderá corrigir eventuais erros materiais de pontuação identificados no sistema, inclusive quando decorrentes de falhas técnicas.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">6. RESGATE DE BRINDES[cite: 1]</p>
+                <p>6.1. Os pontos acumulados poderão ser utilizados exclusivamente para o resgate dos brindes e benefícios disponibilizados pela organização.[cite: 1]<br>
+                6.2. Cada brinde ou benefício poderá exigir uma quantidade mínima específica de pontos, conforme condições divulgadas durante o evento.[cite: 1]<br>
+                6.3. O participante somente poderá realizar o resgate quando possuir pontuação suficiente para o benefício escolhido.[cite: 1]<br>
+                6.4. Os brindes estarão sujeitos à disponibilidade e ao estoque destinado à experiência.[cite: 1]<br>
+                6.5. A disponibilidade de determinado brinde poderá variar ao longo dos dias do evento.[cite: 1]<br>
+                6.6. O atingimento da pontuação necessária não garante, por si só, a disponibilidade de determinado brinde, caso o estoque destinado ao benefício já tenha sido integralmente distribuído.[cite: 1]<br>
+                6.7. Os brindes não poderão ser convertidos em dinheiro ou substituídos por valores financeiros.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">7. LIMITE DE RESGATES[cite: 1]</p>
+                <p>7.1. Será permitido o resgate de 1 (um) brinde por categoria por participante, observadas as condições específicas divulgadas pela organização.[cite: 1]<br>
+                7.2. A organização poderá utilizar mecanismos de identificação do participante para controle de resgates, prevenção de duplicidade e garantia do cumprimento desta regra.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">8. VALIDADE DOS PONTOS[cite: 1]</p>
+                <p>8.1. Os pontos acumulados serão válidos exclusivamente durante o período oficial de realização do evento.[cite: 1]<br>
+                8.2. Encerrado o período do evento, os pontos eventualmente não utilizados perderão sua validade e não gerarão qualquer direito a compensação, pagamento ou conversão em dinheiro.[cite: 1]<br>
+                8.3. A organização poderá estabelecer horários específicos para encerramento das atividades de pontuação e resgate, os quais serão comunicados previamente nas redes sociais.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">9. DISPONIBILIDADE DOS BRINDES[cite: 1]</p>
+                <p>9.1. Os brindes disponibilizados na experiência possuem quantidade limitada.[cite: 1]<br>
+                9.2. A distribuição poderá ocorrer de acordo com a disponibilidade diária ou total definida pela organização.[cite: 1]<br>
+                9.3. Determinado brinde poderá ter seu resgate encerrado antes do término do evento caso sua quantidade disponível seja integralmente distribuída.[cite: 1]<br>
+                9.4. A indisponibilidade de determinado brinde não implica encerramento automático da experiência de gamificação.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">10. FRAUDE, MANIPULAÇÃO E USO INDEVIDO[cite: 1]</p>
+                <p>10.1. Será considerada irregular qualquer tentativa de obter vantagem indevida na experiência, incluindo, mas não se limitando a: a) manipulação do sistema; b) utilização indevida de QR Codes; c) criação de cadastros fraudulentos; d) utilização de mecanismos automatizados não autorizados; e) adulteração ou exploração de falhas da plataforma; f) utilização de dados de terceiros sem autorização; g) tentativa de obtenção duplicada ou indevida de benefícios; h) qualquer outra prática destinada a burlar as regras da experiência.[cite: 1]<br>
+                10.2. Identificada ou razoavelmente constatada qualquer irregularidade, a organização poderá: a) invalidar os pontos obtidos; b) cancelar resgates realizados de forma irregular; c) impedir novos resgates; d) suspender ou excluir o cadastro do participante; e) adotar as medidas administrativas ou judiciais cabíveis, quando aplicável.[cite: 1]<br>
+                10.3. A organização poderá solicitar informações adicionais para verificar a regularidade da participação.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">11. PERDA DE ACESSO[cite: 1]</p>
+                <p>11.1. O participante é responsável pela guarda e utilização dos meios de acesso associados ao seu cadastro.[cite: 1]<br>
+                11.2. A organização não será responsável por perdas decorrentes de: a) fornecimento incorreto de informações pelo participante; b) perda de acesso ao telefone ou e-mail informado no cadastro; c) compartilhamento indevido das informações de acesso; d) utilização da conta por terceiros em razão de negligência do participante.[cite: 1]<br>
+                11.3. Caso seja tecnicamente possível e mediante procedimentos de validação, a organização poderá avaliar solicitações de recuperação de acesso.[cite: 1]<br>
+                11.4. Eventuais pontos permanecerão vinculados ao cadastro individual e não poderão ser transferidos para outro participante.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">12. ENCERRAMENTO DA EXPERIÊNCIA[cite: 1]</p>
+                <p>12.1. A experiência será encerrada ao final do período oficial de realização do evento, conforme datas divulgadas pela organização.[cite: 1]<br>
+                12.2. A organização poderá encerrar antecipadamente determinadas ações, benefícios ou modalidades de resgate quando houver esgotamento da quantidade disponível.[cite: 1]<br>
+                12.3. Eventuais alterações relevantes nas condições da experiência serão comunicadas pelos canais oficiais disponíveis.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">13. RESPONSABILIDADE DO PARTICIPANTE[cite: 1]</p>
+                <p>13.1. O participante declara que as informações fornecidas no cadastro são verdadeiras e de sua responsabilidade.[cite: 1]<br>
+                13.2. O participante deverá utilizar a experiência de forma ética e de acordo com este Regulamento.[cite: 1]<br>
+                13.3. A participação implica ciência das regras estabelecidas neste documento.[cite: 1]</p>
+
+                <hr class="my-3">
+
+                <h6 class="fw-bold text-uppercase">PARTE II — AVISO DE PRIVACIDADE E TRATAMENTO DE DADOS PESSOAIS[cite: 1]</h6>
+
+                <p class="fw-bold mb-1">14. FINALIDADE DESTE AVISO[cite: 1]</p>
+                <p>14.1. Este Aviso de Privacidade tem por objetivo informar aos participantes como seus dados pessoais serão tratados no contexto da experiência de gamificação e jornada de compra do EXAGERADO.[cite: 1]<br>
+                14.2. O tratamento de dados pessoais observará a legislação aplicável, especialmente a Lei nº 13.709/2018 — Lei Geral de Proteção de Dados Pessoais (LGPD).[cite: 1]<br>
+                14.3. A LGPD estabelece regras para o tratamento de dados pessoais e atribui direitos aos titulares dos dados, além de definir as responsabilidades dos agentes envolvidos no tratamento.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">15. CONTROLADOR DOS DADOS[cite: 1]</p>
+                <p>15.1. Para os fins da LGPD, será considerada Controladora dos dados pessoais a empresa responsável pelas decisões referentes ao tratamento dos dados coletados na experiência: Meu Exagerado Negocios de Varejo LTDA (CNPJ: 31.132.191/0001-79), Endereço: Rua Braulina Baptista Lopes, 150 - Rosário de Fátima, E-mail de contato: vendas@meuexagerado.com.br.[cite: 1]<br>
+                15.2. A Controladora será responsável por definir as finalidades e os elementos essenciais relacionados ao tratamento dos dados pessoais.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">16. DADOS QUE SERÃO COLETADOS[cite: 1]</p>
+                <p>16.1. Para participação na experiência poderão ser coletados: a) nome; b) telefone; c) endereço de e-mail.[cite: 1]<br>
+                16.2. A organização poderá registrar também informações relacionadas à participação do usuário na experiência, tais como: a) ações realizadas; b) pesquisas respondidas; c) interações com QR Codes; d) pontuação acumulada; e) benefícios ou brindes resgatados; f) informações necessárias à segurança e ao funcionamento da plataforma.[cite: 1]<br>
+                16.3. Os dados serão coletados de acordo com as necessidades da experiência e observando os princípios aplicáveis à proteção de dados pessoais.[cite: 1]<br>
+                16.4. Não serão solicitados dados pessoais sensíveis para participação na experiência, salvo se houver alteração específica desta política e informação prévia ao titular.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">17. UTILIZAÇÃO DOS DADOS[cite: 1]</p>
+                <p>17.1. Os dados pessoais poderão ser utilizados para: a) realizar e administrar o cadastro do participante; b) permitir sua participação na experiência de gamificação; c) registrar e controlar sua pontuação; d) identificar ações realizadas dentro da experiência; e) permitir o controle de resgates; f) disponibilizar brindes e benefícios; g) prevenir fraudes e utilização indevida da plataforma; h) garantir a segurança e o funcionamento da experiência; i) realizar análises estatísticas e comportamentais relacionadas à participação no evento; j) compreender características, interesses e comportamentos gerais do público do evento; k) produzir indicadores e relatórios relacionados à experiência.[cite: 1]<br>
+                17.2. As análises realizadas pela organização poderão considerar informações de participação, interação, pontuação e resgate, buscando compreender o comportamento geral do público e o desempenho das ações realizadas durante o evento.[cite: 1]<br>
+                17.3. Sempre que possível e adequado, as análises destinadas à compreensão do público serão realizadas de forma agregada ou anonimizada, de modo a reduzir a possibilidade de identificação individual.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">18. BANCO DE DADOS E HISTÓRICO DA JORNADA[cite: 1]</p>
+                <p>18.1. Os dados fornecidos pelo participante poderão integrar banco de dados administrado pela Controladora.[cite: 1]<br>
+                18.2. O banco de dados poderá reunir informações cadastrais e informações relacionadas à jornada do participante dentro da experiência.[cite: 1]<br>
+                18.3. O histórico poderá contemplar: a) cadastro; b) interações; c) pesquisas; d) leituras de QR Codes; e) pontuação; f) resgates; g) informações necessárias à segurança e auditoria da experiência.[cite: 1]<br>
+                18.4. A utilização dessas informações terá como finalidade a execução da experiência, o controle operacional, a prevenção de fraudes e a análise do desempenho e do público do evento.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">19. COMPARTILHAMENTO DE DADOS[cite: 1]</p>
+                <p>19.1. Os dados pessoais serão tratados prioritariamente pela Controladora e pelas áreas internas autorizadas.[cite: 1]<br>
+                19.2. Os dados poderão ser acessados por prestadores de serviços e fornecedores que atuem em nome da Controladora para hospedagem, armazenamento, funcionamento, manutenção técnica e segurança da plataforma.[cite: 1]<br>
+                19.3. Eventuais terceiros que atuem no tratamento dos dados deverão fazê-lo de acordo com as instruções da Controladora e observando as obrigações legais.[cite: 1]<br>
+                19.4. Os dados não serão comercializados ou disponibilizados publicamente pela organização.[cite: 1]<br>
+                19.5. O acesso interno aos dados será restrito às pessoas que necessitem dessas informações para execução de suas atividades.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">20. COMUNICAÇÕES DE MARKETING[cite: 1]</p>
+                <p>20.1. A participação na experiência de gamificação não implica, por si só, autorização automática para o envio de comunicações promocionais, publicitárias ou de marketing.[cite: 1]<br>
+                20.2. Caso a organização deseje utilizar os dados para envio de comunicações promocionais, essa finalidade deverá ser informada ao participante de maneira adequada e, quando aplicável, mediante obtenção do consentimento.[cite: 1]<br>
+                20.3. O participante poderá receber comunicações estritamente necessárias à execução da experiência, como informações relacionadas ao cadastro, pontuação, resgate ou funcionamento.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">21. PRAZO DE ARMAZENAMENTO[cite: 1]</p>
+                <p>21.1. Os dados pessoais relacionados à experiência poderão ser armazenados pelo período mínimo de 1 (um) ano, contado a partir do início da campanha, sendo 18/09/2026.[cite: 1]<br>
+                21.2. O prazo poderá ser estendido quando houver fundamento legal que justifique a conservação dos dados.[cite: 1]<br>
+                21.3. Encerrada a necessidade de tratamento e inexistindo fundamento legal para manutenção dos dados, estes deverão ser eliminados, anonimizados ou submetidos a outra forma de tratamento permitida pela legislação.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">22. SEGURANÇA DOS DADOS[cite: 1]</p>
+                <p>22.1. A Controladora adotará medidas técnicas e administrativas razoáveis para proteger as informações contra acessos não autorizados e situações acidentais ou ilícitas.[cite: 1]<br>
+                22.2. O acesso aos dados deverá ser limitado às pessoas autorizadas.[cite: 1]<br>
+                22.3. Nenhum sistema de segurança é absolutamente inviolável. A organização adotará medidas compatíveis com os riscos envolvidos.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">23. DIREITOS DO TITULAR[cite: 1]</p>
+                <p>23.1. Nos termos da legislação aplicável, o participante poderá exercer seus direitos perante a Controladora.[cite: 1]<br>
+                23.2. Entre os direitos previstos na LGPD estão: confirmação, acesso, correção, anonimização, eliminação, informação sobre compartilhamento e revogação do consentimento.[cite: 1]<br>
+                23.3. O exercício dos direitos poderá estar sujeito à confirmação da identidade do solicitante.[cite: 1]<br>
+                23.4. Alguns direitos não são absolutos e poderão sofrer limitações quando houver fundamento legal para manutenção dos dados.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">24. COMO SOLICITAR ACESSO, CORREÇÃO OU EXCLUSÃO[cite: 1]</p>
+                <p>24.1. O titular poderá solicitar informações ou exercer seus direitos pelo e-mail: vendas@meuexagerado.com.br.[cite: 1]<br>
+                24.2. A solicitação deverá conter informações suficientes para identificação do titular.[cite: 1]<br>
+                24.3. A Controladora analisará a solicitação e fornecerá resposta conforme a legislação aplicável.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">25. ENCARREGADO PELO TRATAMENTO DE DADOS[cite: 1]</p>
+                <p>25.1. O canal responsável pelo atendimento de questões relacionadas à proteção de dados será: Encarregado/DPO: Meu Exagerado Negócios e Varejo LTDA (E-mail: vendas@meuexagerado.com.br | Telefone: 27 99802-3814).[cite: 1]</p>
+
+                <p class="fw-bold mb-1">26. BASE LEGAL DO TRATAMENTO[cite: 1]</p>
+                <p>26.1. O tratamento dos dados pessoais será realizado com fundamento nas hipóteses legais aplicáveis previstas na LGPD.[cite: 1]<br>
+                26.2. Para a execução da experiência, poderão ser consideradas bases legais como: consentimento, execução de contrato, legítimo interesse e cumprimento de obrigação legal.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">27. COLETA DE DADOS POR QR CODES[cite: 1]</p>
+                <p>27.1. Os QR Codes disponibilizados nas lojas expositoras poderão ser utilizados como mecanismos de interação.[cite: 1]<br>
+                27.2. A leitura ou interação com determinado QR Code poderá gerar pontuação ao participante.[cite: 1]<br>
+                27.3. A interação poderá ser registrada no sistema para fins de contabilização de pontos e prevenção de fraude.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">28. LOJAS EXPOSITORAS E TERCEIROS[cite: 1]</p>
+                <p>28.1. A participação de lojas expositoras não significa que tais estabelecimentos terão acesso aos dados pessoais cadastrados pelo participante.[cite: 1]<br>
+                28.2. O compartilhamento de dados com expositor ou terceiro somente ocorrerá quando houver fundamento jurídico e informação adequada ao titular.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">29. ALTERAÇÕES DESTE DOCUMENTO[cite: 1]</p>
+                <p>29.1. A organização poderá atualizar este Regulamento e Aviso de Privacidade. Alterações relevantes serão comunicadas pelos canais adequados.[cite: 1]</p>
+
+                <p class="fw-bold mb-1">30. DISPOSIÇÕES FINAIS[cite: 1]</p>
+                <p>30.1. A participação na experiência pressupõe a leitura e ciência deste Regulamento.[cite: 1]<br>
+                30.2. Este documento deverá ser interpretado em conjunto com a legislação brasileira aplicável, especialmente a Lei nº 13.709/2018 (LGPD).[cite: 1]</p>
+
+                <p class="fw-bold mb-1">IDENTIFICAÇÃO DA CONTROLADORA[cite: 1]</p>
+                <p class="mb-0">Razão Social: Meu Exagerado Negocios de Varejo LTDA<br>
+                Nome Fantasia: Meu Exagerado<br>
+                CNPJ: 31.132.191/0001-79<br>
+                Endereço: Rua Braulina Baptista Lopes, 150 - Rosário de Fátima, Serra<br>
+                E-mail LGPD / DPO: vendas@meuexagerado.com.br<br>
+                Última atualização: 11/08/2026[cite: 1]</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Entendi e Concordo</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

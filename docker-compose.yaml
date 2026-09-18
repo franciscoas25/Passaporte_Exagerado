@@ -1,0 +1,15 @@
+services:
+
+  client-journey:
+
+    build: .
+
+    container_name: client-journey
+
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    ports:
+      - "8000:8000"

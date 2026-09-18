@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Resgatar brinde{% endblock %}
+{% block content %}
+<a href="/admin" class="text-decoration-none text-muted small">← Voltar ao hub</a>
+<h4 class="mb-3">Resgatar brinde</h4>
+<form method="post" action="/admin/resgate">
+    <div class="mb-3">
+        <label class="form-label">Código do cliente</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" id="id_public" required autofocus>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Brinde</label>
+        <select class="form-select" name="brinde_id" id="brinde_id" required disabled>
+            <option value="" disabled selected>Escolha um brinde</option>            
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Resgatar</button>
+</form>
+
+<script>
+document.getElementById("id_public").addEventListener("blur", async function () {
+
+    const idPublic = this.value.trim().toUpperCase();
+    const select = document.getElementById("brinde_id");
+
+    // Limpa a combo
+    select.innerHTML = "";
+
+    if (!idPublic) {
+        select.disabled = true;
+
+        const option = document.createElement("option");
+        option.textContent = "Informe o código do cliente";
+        option.value = "";
+
+        select.appendChild(option);
+        return;
+    }
+
+    select.disabled = true;
+
+    const optionLoading = document.createElement("option");
+    optionLoading.textContent = "Carregando brindes...";
+    optionLoading.value = "";
+
+    select.appendChild(optionLoading);
+
+    try {
+
+        const response = await fetch(
+            `/admin/resgate/brindes?id_public=${encodeURIComponent(idPublic)}`
+        );
+
+        const data = await response.json();
+
+        select.innerHTML = "";
+
+        if (!response.ok) {
+            const option = document.createElement("option");
+            option.value = "";
+            option.textContent = data.detail || "Cliente não encontrado";
+
+            select.appendChild(option);
+            return;
+        }
+
+        if (data.length === 0) {
+            const option = document.createElement("option");
+            option.value = "";
+            option.textContent = "Nenhum brinde disponível";
+
+            select.appendChild(option);
+            return;
+        }
+
+        const optionInicial = document.createElement("option");
+        optionInicial.value = "";
+        optionInicial.textContent = "Escolha um brinde";
+        optionInicial.disabled = true;
+        optionInicial.selected = true;
+
+        select.appendChild(optionInicial);
+
+        data.forEach(brinde => {
+
+            const option = document.createElement("option");
+
+            option.value = brinde.id;
+
+            option.textContent =
+                `${brinde.nome} - ${brinde.custo_pontos} pts (${brinde.estoque} unidades) - ${brinde.tipo}`;
+
+            select.appendChild(option);
+        });
+
+        select.disabled = false;
+
+    } catch (error) {
+
+        console.error(error);
+
+        select.innerHTML = "";
+
+        const option = document.createElement("option");
+        option.value = "";
+        option.textContent = "Erro ao consultar brindes";
+
+        select.appendChild(option);
+    }
+});
+</script>
+
+{% endblock %}
