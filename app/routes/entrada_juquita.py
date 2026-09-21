@@ -16,8 +16,6 @@ def form_entrada_juquita(request: Request):
 def submit_entrada_juquita(
     request: Request,
     id_public: str = Form(...),
-    item_ritmo: str = Form(...),
-    faixa_etaria: str = Form(...),
     ficou_sabendo_onde: str = Form(...),
 ):
     visitante = db.buscar_por_id_public(id_public.strip().upper())
@@ -30,8 +28,6 @@ def submit_entrada_juquita(
 
     resultado = db.registrar_entrada_juquita(
         visitante_id=visitante["id"],
-        item_ritmo=item_ritmo,
-        faixa_etaria=faixa_etaria,
         ficou_sabendo_onde=ficou_sabendo_onde,
     )
 

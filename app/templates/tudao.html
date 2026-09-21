@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}Pesquisa EXAGERADO{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Responde TUDÃO pra gente</h4>
+<p class="text-muted">Diz TUDÃO pra gente como tá sendo o rolê e garanta mais pontos no passaporte!</p>
+
+<!-- Pergunta 1 -->
+<form method="post" action="/tudao">
+    <div class="mb-3">
+        <label class="form-label">Seu código</label>
+        <input type="text" class="form-control text-uppercase" name="id_public" required autofocus>
+    </div>
+    <div class="mb-3">
+        <label for="quem_e_voce" class="form-label">
+            Quem é você hoje no Exagerado?
+        </label>
+        <select class="form-select" id="quem_e_voce" name="quem_e_voce" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="cacador_marcas">Caçador de marcas fod4s</option>
+            <option value="passeador">Passeador profissional / Só vim acompanhar</option>
+            <option value="comer_beber">Veio pra comer e tomar uma</option>
+            <option value="cansado_promocao">Cansado buscando promoção</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 2 -->
+    <div class="mb-3">
+        <label for="foco_principal" class="form-label">
+            Qual é o seu foco principal hoje?
+        </label>
+        <select class="form-select" id="foco_principal" name="foco_principal" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="roupas_calcados">Roupas e calçados</option>
+            <option value="casa_decoracao">Casa e decoração</option>
+            <option value="infantil_kids">Infantil / Kids</option>
+            <option value="gastronomia_entretenimento">Gastronomia e entretenimento</option>
+            <option value="outros_segmentos">Outros segmentos</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 3 -->
+    <div class="mb-3">
+        <label for="regiao_origem" class="form-label">
+            Qual é a sua região de origem?
+        </label>
+        <select class="form-select" id="regiao_origem" name="regiao_origem" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="vizinho_parque">Vizinho do Parque (Moema, Vila Mariana, Jardins, Itaim)</option>
+            <option value="outros_zona_sul">Outros bairros da Zona Sul</option>
+            <option value="outras_zonas">Zona Oeste / Centro / Zona Norte / Zona Leste</option>
+            <option value="grande_sp">Grande SP</option>
+            <option value="interior">Interior</option>
+            <option value="outro_estado">Outro Estado</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 4 -->
+    <div class="mb-3">
+        <label for="como_veio_exagerado" class="form-label">
+            Como você veio pro Exagerado?
+        </label>
+        <select class="form-select" id="como_veio_exagerado" name="como_veio_exagerado" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="carro_estacionamento">Carro próprio / Estacionamento</option>
+            <option value="uber_app">Uber / App de Mobilidade</option>
+            <option value="transporte_publico">Transporte Público (Metrô / Ônibus)</option>
+            <option value="a_pe_bike_patinete">A pé / Bike / Patinete</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 5 -->
+    <div class="mb-3">
+        <label for="tempo_ate_chegar" class="form-label">
+            Quanto tempo levou no corre até chegar?
+        </label>
+        <select class="form-select" id="tempo_ate_chegar" name="tempo_ate_chegar" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="menos_30">Menos de 30 min (vizinho do parque)</option>
+            <option value="30_60">30 min a 1 hora</option>
+            <option value="mais_60">Mais de 1 hora (respeita meu corre!)</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 6 -->
+    <div class="mb-3">
+        <label for="ritmo_do_item" class="form-label">
+            Esse item vai te acompanhar em qual ritmo?
+        </label>
+        <select class="form-select" id="ritmo_do_item" name="ritmo_do_item" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="acessibilidade_conforto">Acessibilidade / Conforto em 1º lugar</option>
+            <option value="familia_criancas">Modo família com crianças ativadas 👶</option>
+            <option value="compras_chopp">Maratonando as compras sem pausar o chopp 🍺</option>
+            <option value="itens_exclusivos">Colecionador de itens exclusivos Exagerado</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 7 -->
+    <div class="mb-3">
+        <label for="faixa_idade" class="form-label">
+            Qual é a sua faixa de idade?
+        </label>
+        <select class="form-select" id="faixa_idade" name="faixa_idade" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="geracao_z">Geração Z: Se não tá no TikTok/Reels, nem fiquei sabendo. (Até 24 anos)</option>
+            <option value="millennial">Millennial Cansado: Já venho de dipirona na bolsa e joelho estalando. (25 a 40 anos)</option>
+            <option value="experiente_chique">Experiente &amp; Chique: Sei o valor do meu dinheiro e não aceito menos que o melhor. (41 a 55 anos)</option>
+            <option value="exagerado_classico">Exagerado Clássico: Aposentadoria é pra gastar com estilo! (56+ anos)</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 8 -->
+    <div class="mb-3">
+        <label for="como_ficou_sabendo" class="form-label">
+            Ficou sabendo do rolê por onde?
+        </label>
+        <select class="form-select" id="como_ficou_sabendo" name="como_ficou_sabendo" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="redes_sociais">Pelas Redes Sociais do evento, sou cronicamente online</option>
+            <option value="whatsapp">Pelo WhatsApp</option>
+            <option value="familia_amigos">Família e amigos</option>
+            <option value="ativacoes">Por meio das ativações</option>
+            <option value="influenciadores">Influenciadores digitais</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 9 -->
+    <div class="mb-3">
+        <label for="maior_garimpo" class="form-label">
+            O que você mais gostou de garimpar até agora?
+        </label>
+        <select class="form-select" id="maior_garimpo" name="maior_garimpo" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="marcas_desconto">Marcas famosas com desconto real</option>
+            <option value="achadinhos">Achadinhos que nem esperava encontrar</option>
+            <option value="experiencia_gastronomia">A experiência / Espaço gastronômico</option>
+            <option value="inteligencia_mercado">Inteligência de Mercado &amp; Aplicação Prática</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 10 -->
+    <div class="mb-3">
+        <label for="marca_favorita" class="form-label">
+            Qual marca te deixa louco no rolê?
+        </label>
+        <input
+            type="text"
+            class="form-control"
+            id="marca_favorita"
+            name="marca_favorita"
+            placeholder="Digite o nome da marca"
+        >
+    </div>
+
+    <!-- Pergunta 11 -->
+    <div class="mb-3">
+        <label for="prioridade_lounge_vip" class="form-label">
+            Qual é a sua prioridade no Lounge VIP?
+        </label>
+        <select class="form-select" id="prioridade_lounge_vip" name="prioridade_lounge_vip" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="recarregar_bateria">Recarregar a bateria (minha e do celular)</option>
+            <option value="networking_cafes">Networking e bons cafés</option>
+            <option value="pausa_estrategica">Fazer uma pausa estratégica entre uma sacola e outra</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 12 -->
+    <div class="mb-3">
+        <label for="quantidade_sacolas" class="form-label">
+            Quantas sacolas você planeja levar pra casa hoje?
+        </label>
+        <select class="form-select" id="quantidade_sacolas" name="quantidade_sacolas" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="1_3">1 a 3 itens (compras pontuais)</option>
+            <option value="4_7">4 a 7 itens (garimpo com sucesso)</option>
+            <option value="8_mais">Mais de 8 (renovei o guarda-roupa)</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 13 -->
+    <div class="mb-3">
+        <label for="faixa_renda" class="form-label">
+            E o money? Qual sua renda?
+        </label>
+        <select class="form-select" id="faixa_renda" name="faixa_renda" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="ate_1000">Até R$1.000,00</option>
+            <option value="1000_3000">Entre R$1.000,00 e R$3.000,00</option>
+            <option value="3000_6000">Entre R$3.000,00 e R$6.000,00</option>
+            <option value="acima_6000">Acima de R$6.000,00</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 14 -->
+    <div class="mb-3">
+        <label for="valor_gasto" class="form-label">
+            Quanto vc pretende gastar ou gastou nessa brincadeira?
+        </label>
+        <select class="form-select" id="valor_gasto" name="valor_gasto" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="ate_200">Até R$200,00</option>
+            <option value="200_600">Entre R$200,00 e R$600,00</option>
+            <option value="600_1200">Entre R$600,00 e R$1.200,00</option>
+            <option value="1200_1500">Entre R$1.200,00 e R$1.500,00</option>
+            <option value="acima_1500">Acima de R$1.500,00</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 15 -->
+    <div class="mb-3">
+        <label for="companhia_role" class="form-label">
+            Veio com quem curtir o rolê?
+        </label>
+        <select class="form-select" id="companhia_role" name="companhia_role" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="sozinho">Sozinho pq sou autossuficiente</option>
+            <option value="familia">Com a família, né bb</option>
+            <option value="amigos">Com meus amigos</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 16 -->
+    <div class="mb-3">
+        <label for="melhor_dia" class="form-label">
+            Qual o melhor dia pra curtir?
+        </label>
+        <select class="form-select" id="melhor_dia" name="melhor_dia" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="quarta">Quarta-feira</option>
+            <option value="quinta">Quinta-feira</option>
+            <option value="sexta">Sexta-feira</option>
+            <option value="sabado">Sábado</option>
+            <option value="domingo">Domingo</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 17 -->
+    <div class="mb-3">
+        <label for="forma_pagamento" class="form-label">
+            Como tá pagando as compritas?
+        </label>
+        <select class="form-select" id="forma_pagamento" name="forma_pagamento" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="pix">No PIX</option>
+            <option value="debito">Cartão de Débito</option>
+            <option value="credito">Cartão de Crédito</option>
+            <option value="dinheiro">Dinheiro</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 18 -->
+    <div class="mb-3">
+        <label for="nota_recomendacao" class="form-label">
+            De 0 a 10, o quanto você recomendaria o Exagerado para um amigo?
+        </label>
+        <select class="form-select" id="nota_recomendacao" name="nota_recomendacao" required>
+            <option value="" selected disabled>Selecione uma nota</option>
+            {% for nota in range(0, 11) %}
+                <option value="{{ nota }}">{{ nota }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Pergunta 19 -->
+    <div class="mb-3">
+        <label for="maior_destaque" class="form-label">
+            Qual foi o maior destaque do seu dia no Exagerado?
+        </label>
+        <select class="form-select" id="maior_destaque" name="maior_destaque" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="precos_descontos">Os preços e descontos</option>
+            <option value="estrutura_ibirapuera">A estrutura e o espaço no Ibirapuera</option>
+            <option value="atendimento_facilidade">O atendimento e a facilidade do evento</option>
+            <option value="variedade_marcas">A variedade de marcas</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 20 -->
+    <div class="mb-3">
+        <label for="proxima_edicao_sp" class="form-label">
+            Te vejo na próxima edição SP?
+        </label>
+        <select class="form-select" id="proxima_edicao_sp" name="proxima_edicao_sp" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="com_certeza_whatsapp">Com certeza! Já me avisa pelo WhatsApp</option>
+            <option value="depende_data">Depende da data</option>
+            <option value="talvez">Talvez</option>
+        </select>
+    </div>
+
+    <!-- Pergunta 21 -->
+    <div class="mb-3">
+        <label for="feedback_geral" class="form-label">
+            Deixe aqui o seu feedback geral, bb
+        </label>
+        <input
+            type="text"
+            class="form-control"
+            id="feedback_geral"
+            name="feedback_geral"
+            placeholder="Conta pra gente como foi sua experiência..."
+        >
+    </div>
+
+    <div class="d-grid gap-2 mt-4">
+        <button type="submit" class="btn btn-primary">
+            Enviar pesquisa 🚀
+        </button>
+    </div>
+</form>
+<p class="text-center text-muted small mt-3">
+    Ainda não tem código? <a href="/entrada">Cadastre-se aqui</a>
+</p>
+
+{% endblock %}

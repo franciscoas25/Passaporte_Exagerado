@@ -147,3 +147,7 @@ def listar_brindes(request: Request):
             status_code=404,
         )
     return templates.TemplateResponse(request, "dashboard.html", {"brindes": brindes})
+
+@router.get("/admin/usuario_pontuacao", dependencies=[Depends(verificar_admin)])
+def form_usuario_pontuacao(request: Request):
+    return templates.TemplateResponse(request, "usuario_pontuacao.html", {})

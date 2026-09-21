@@ -137,18 +137,16 @@ class DatabaseManager:
         query = text("UPDATE users SET pontos_atuais = pontos_atuais + :pontos WHERE id = :visitante_id")
         conn.execute(query, {"visitante_id": visitante_id, "pontos": pontos})
 
-    def registrar_entrada_juquita(self, visitante_id: int, item_ritmo: str, faixa_etaria: str, ficou_sabendo_onde: str) -> str:
+    def registrar_entrada_juquita(self, visitante_id: int, ficou_sabendo_onde: str) -> str:
         """Retorna 'ok', 'duplicado' ou 'erro'."""
         query = text("""
-            INSERT INTO interacoes_entrada_juquita (visitante_id, item_ritmo, faixa_etaria, ficou_sabendo_onde)
-            VALUES (:visitante_id, :item_ritmo, :faixa_etaria, :ficou_sabendo_onde)
+            INSERT INTO interacoes_entrada_juquita (visitante_id, ficou_sabendo_onde)
+            VALUES (:visitante_id, :ficou_sabendo_onde)
         """)
         try:
             with self.engine.begin() as conn:
                 conn.execute(query, {
                     "visitante_id": visitante_id,
-                    "item_ritmo": item_ritmo,
-                    "faixa_etaria": faixa_etaria,
                     "ficou_sabendo_onde": ficou_sabendo_onde
                 })
                 self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)
@@ -197,7 +195,7 @@ class DatabaseManager:
                     "oque_trouxe": oque_trouxe,
                     "regiao": regiao
                 })
-                self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)
+                #self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)
             logger.info(f"Ação Guerrilha registrada para visitante {visitante_id}.")
             return "ok"
         except IntegrityError:
@@ -207,18 +205,134 @@ class DatabaseManager:
             logger.error(f"Erro ao registrar Ação Guerrilha: {e}")
             return "erro"
 
-    def registrar_boas_vindas(self, visitante_id: int, quem_eh_voce: str, qual_foco: str, regiao: str) -> str:
+        
+
+    def registrar_tudao(
+        self,
+        visitante_id: int,
+        quem_e_voce: str,
+        foco_principal: str,
+        regiao_origem: str,
+        como_veio_exagerado: str,
+        tempo_ate_chegar: str,
+        ritmo_do_item: str,
+        faixa_idade: str,
+        como_ficou_sabendo: str,
+        maior_garimpo: str,
+        marca_favorita: str,
+        prioridade_lounge_vip: str,
+        quantidade_sacolas: str,
+        faixa_renda: str,
+        valor_gasto: str,
+        companhia_role: str,
+        melhor_dia: str,
+        forma_pagamento: str,
+        nota_recomendacao: int,
+        maior_destaque: str,
+        proxima_edicao_sp: str,
+        feedback_geral: str
+    ) -> str:
+
+        """Retorna 'ok' ou 'erro'."""
+
+        query = text("""
+            INSERT INTO interacoes_tudao (
+                visitante_id,
+                quem_e_voce,
+                foco_principal,
+                regiao_origem,
+                como_veio_exagerado,
+                tempo_ate_chegar,
+                ritmo_do_item,
+                faixa_idade,
+                como_ficou_sabendo,
+                maior_garimpo,
+                marca_favorita,
+                prioridade_lounge_vip,
+                quantidade_sacolas,
+                faixa_renda,
+                valor_gasto,
+                companhia_role,
+                melhor_dia,
+                forma_pagamento,
+                nota_recomendacao,
+                maior_destaque,
+                proxima_edicao_sp,
+                feedback_geral
+            )
+            VALUES (
+                :visitante_id,
+                :quem_e_voce,
+                :foco_principal,
+                :regiao_origem,
+                :como_veio_exagerado,
+                :tempo_ate_chegar,
+                :ritmo_do_item,
+                :faixa_idade,
+                :como_ficou_sabendo,
+                :maior_garimpo,
+                :marca_favorita,
+                :prioridade_lounge_vip,
+                :quantidade_sacolas,
+                :faixa_renda,
+                :valor_gasto,
+                :companhia_role,
+                :melhor_dia,
+                :forma_pagamento,
+                :nota_recomendacao,
+                :maior_destaque,
+                :proxima_edicao_sp,
+                :feedback_geral
+            )
+        """)
+
+        try:
+            with self.engine.begin() as conn:
+                conn.execute(query, {
+                    "visitante_id": visitante_id,
+                    "quem_e_voce": quem_e_voce,
+                    "foco_principal": foco_principal,
+                    "regiao_origem": regiao_origem,
+                    "como_veio_exagerado": como_veio_exagerado,
+                    "tempo_ate_chegar": tempo_ate_chegar,
+                    "ritmo_do_item": ritmo_do_item,
+                    "faixa_idade": faixa_idade,
+                    "como_ficou_sabendo": como_ficou_sabendo,
+                    "maior_garimpo": maior_garimpo,
+                    "marca_favorita": marca_favorita,
+                    "prioridade_lounge_vip": prioridade_lounge_vip,
+                    "quantidade_sacolas": quantidade_sacolas,
+                    "faixa_renda": faixa_renda,
+                    "valor_gasto": valor_gasto,
+                    "companhia_role": companhia_role,
+                    "melhor_dia": melhor_dia,
+                    "forma_pagamento": forma_pagamento,
+                    "nota_recomendacao": nota_recomendacao,
+                    "maior_destaque": maior_destaque,
+                    "proxima_edicao_sp": proxima_edicao_sp,
+                    "feedback_geral": feedback_geral
+                })
+                logger.info(f"Formulário Tudão registrado para visitante {visitante_id}.")
+                return "ok"
+        except IntegrityError:
+            logger.warning(f"Visitante {visitante_id} já respondeu ao formulário Tudão.")
+            return "duplicado"
+        except SQLAlchemyError as e:
+            logger.error(f"Erro ao registrar formulário Tudão: {e}")
+            return "erro"
+
+            
+
+    def registrar_boas_vindas(self, visitante_id: int, regiao: str) -> str:
             """Retorna 'ok', 'duplicado' ou 'erro'."""
             query = text("""
-                INSERT INTO interacoes_boas_vindas (visitante_id, quem_eh_voce, qual_foco, regiao)
-                VALUES (:visitante_id, :quem_eh_voce, :qual_foco, :regiao)
+                INSERT INTO interacoes_boas_vindas (visitante_id, regiao)
+                VALUES (:visitante_id, :regiao)
             """)
             try:
                 with self.engine.begin() as conn:
                     conn.execute(query, {
                         "visitante_id": visitante_id,
-                        "quem_eh_voce": quem_eh_voce,
-                        "qual_foco": qual_foco,
                         "regiao": regiao
                     })
                     self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)
@@ -359,7 +473,8 @@ class DatabaseManager:
                 EXISTS(SELECT 1 FROM interacoes_dentro_lojas WHERE visitante_id = :id) AS dentro_lojas,
                 EXISTS(SELECT 1 FROM interacoes_estacionamento WHERE visitante_id = :id) AS estacionamento,
                 EXISTS(SELECT 1 FROM interacoes_saida_juquita WHERE visitante_id = :id) AS saida_juquita,
-                EXISTS(SELECT 1 FROM interacoes_saida_nps WHERE visitante_id = :id) AS saida_nps
+                EXISTS(SELECT 1 FROM interacoes_saida_nps WHERE visitante_id = :id) AS saida_nps,
+                EXISTS(SELECT 1 FROM interacoes_tudao WHERE visitante_id = :id) AS tudao
         """)
         with self.engine.connect() as conn:
             resultado = conn.execute(query, {"id": visitante_id}).mappings().fetchone()
@@ -372,7 +487,8 @@ class DatabaseManager:
             "Dentro Lojas": resultado["dentro_lojas"],
             "Estacionamento": resultado["estacionamento"],
             "Saida Juquita": resultado["saida_juquita"],
-            "NPS": resultado["saida_nps"]
+            "NPS": resultado["saida_nps"],
+            "Tudao": resultado["tudao"],
         }
 
     def verificar_cadastro_periodo(self, visitante_id: int) -> bool:
