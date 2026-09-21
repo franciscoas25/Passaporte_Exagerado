@@ -485,8 +485,8 @@ class DatabaseManager:
             "Boas Vindas": resultado["boas_vindas"],
             "Cenografia": resultado["cenografia"],
             "Dentro Lojas": resultado["dentro_lojas"],
-            "Estacionamento": resultado["estacionamento"],
-            "Saida Juquita": resultado["saida_juquita"],
+            "Corredor 2º piso": resultado["estacionamento"],
+            "Rampa 2º piso": resultado["saida_juquita"],
             "NPS": resultado["saida_nps"],
             "Tudao": resultado["tudao"],
         }
