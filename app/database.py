@@ -203,9 +203,7 @@ class DatabaseManager:
             return "duplicado"
         except SQLAlchemyError as e:
             logger.error(f"Erro ao registrar Ação Guerrilha: {e}")
-            return "erro"
-
-        
+            return "erro"        
 
     def registrar_tudao(
         self,
@@ -319,9 +317,7 @@ class DatabaseManager:
             return "duplicado"
         except SQLAlchemyError as e:
             logger.error(f"Erro ao registrar formulário Tudão: {e}")
-            return "erro"
-
-            
+            return "erro"            
 
     def registrar_boas_vindas(self, visitante_id: int, regiao: str) -> str:
             """Retorna 'ok', 'duplicado' ou 'erro'."""
@@ -490,6 +486,32 @@ class DatabaseManager:
             "NPS": resultado["saida_nps"],
             "Tudao": resultado["tudao"],
         }
+
+    def buscar_formularios_respondidos_gratis(self, visitante_id: int) -> dict[str, bool]:
+            query = text("""
+                SELECT
+                    EXISTS(SELECT 1 FROM interacoes_lounge_vip WHERE visitante_id = :id) AS lounge_vip,
+                    EXISTS(SELECT 1 FROM interacoes_entrada_juquita WHERE visitante_id = :id) AS entrada_juquita,
+                    EXISTS(SELECT 1 FROM interacoes_boas_vindas WHERE visitante_id = :id) AS boas_vindas,
+                    EXISTS(SELECT 1 FROM interacoes_cenografia WHERE visitante_id = :id) AS cenografia,
+                    EXISTS(SELECT 1 FROM interacoes_dentro_lojas WHERE visitante_id = :id) AS dentro_lojas,
+                    EXISTS(SELECT 1 FROM interacoes_estacionamento WHERE visitante_id = :id) AS estacionamento,
+                    EXISTS(SELECT 1 FROM interacoes_saida_juquita WHERE visitante_id = :id) AS saida_juquita
+            """)
+            with self.engine.connect() as conn:
+                resultado = conn.execute(query, {"id": visitante_id}).mappings().fetchone()
+            return {
+                "Entrada Juquita": resultado["entrada_juquita"],
+                "Lounge VIP": resultado["lounge_vip"],
+                #"Acao Guerrilha": resultado["acao_guerrilha"],
+                "Boas Vindas": resultado["boas_vindas"],
+                "Cenografia": resultado["cenografia"],
+                "Dentro Lojas": resultado["dentro_lojas"],
+                "Corredor 2º piso": resultado["estacionamento"],
+                "Rampa 2º piso": resultado["saida_juquita"]
+                #"NPS": resultado["saida_nps"],
+                #"Tudao": resultado["tudao"],
+            }
 
     def verificar_cadastro_periodo(self, visitante_id: int) -> bool:
             query = text("""
@@ -691,13 +713,11 @@ class DatabaseManager:
                 and (SELECT
                         EXISTS(SELECT 1 FROM interacoes_lounge_vip WHERE visitante_id = :visitante_id) AND 
                         EXISTS(SELECT 1 FROM interacoes_entrada_juquita WHERE visitante_id = :visitante_id) AND
-                        EXISTS(SELECT 1 FROM interacoes_acao_guerrilha WHERE visitante_id = :visitante_id) AND
                         EXISTS(SELECT 1 FROM interacoes_boas_vindas WHERE visitante_id = :visitante_id) AND
                         EXISTS(SELECT 1 FROM interacoes_cenografia WHERE visitante_id = :visitante_id) AND
                         EXISTS(SELECT 1 FROM interacoes_dentro_lojas WHERE visitante_id = :visitante_id) AND 
                         EXISTS(SELECT 1 FROM interacoes_estacionamento WHERE visitante_id = :visitante_id) AND
-                        EXISTS(SELECT 1 FROM interacoes_saida_juquita WHERE visitante_id = :visitante_id) AND
-                        EXISTS(SELECT 1 FROM interacoes_saida_nps WHERE visitante_id = :visitante_id)) = true
+                        EXISTS(SELECT 1 FROM interacoes_saida_juquita WHERE visitante_id = :visitante_id)) = true
                 and not exists (
                     select 1
                     from resgates r,
@@ -763,12 +783,12 @@ class DatabaseManager:
         'ja_resgatou_padrao', 'duplicado' ou 'erro'."""
 
         if tipo == "gratis":
-            formularios = self.buscar_formularios_respondidos(visitante_id)
+            #formularios = self.buscar_formularios_respondidos(visitante_id)
+            formularios = self.buscar_formularios_respondidos_gratis(visitante_id)
             if not all(formularios.values()):
                 return "formularios_incompletos"
 
         if tipo == "periodo":
-            #formularios = self.buscar_formularios_respondidos(visitante_id)
             cadastrou_periodo = self.verificar_cadastro_periodo(visitante_id)
 
             if not cadastrou_periodo:
