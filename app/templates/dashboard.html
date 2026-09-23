@@ -492,26 +492,10 @@
 
                             <td class="text-center">
 
-                                {% if brinde.estoque > 10 %}
-
-                                    <span class="badge text-bg-success">
-                                        {{ brinde.estoque }}
-                                    </span>
-
-                                {% elif brinde.estoque > 0 and brinde.estoque <= 10 %}
-
-                                    <span class="text-center badge text-bg-secondary">
-                                        {{ brinde.estoque }}
-                                    </span>
-
-                                {% else %}
-
-                                    <span class="badge text-bg-danger">
-                                        Esgotado
-                                    </span>
-
-                                {% endif %}
-
+                                <span class="badge text-bg-success">
+                                    {{ brinde.estoque }}
+                                </span>
+                                
                             </td>
 
                             <td class="text-center">

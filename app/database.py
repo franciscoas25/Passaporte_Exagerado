@@ -610,8 +610,70 @@ class DatabaseManager:
                 from 
                     brindes 
                 where 
-                    estoque > 0 
-                and custo_pontos <= :pontos and tipo = 'padrao'
+                    estoque > 0
+                and (
+                    SELECT COALESCE(SUM(estoque), 0)
+                    FROM brindes
+                    WHERE tipo = 'padrao'
+                    and custo_pontos = 200
+                    ) > 320 
+                and custo_pontos <= :pontos 
+                and tipo = 'padrao'
+                and custo_pontos = 200
+
+                union
+
+                select 
+                    * 
+                from 
+                    brindes 
+                where 
+                    estoque > 0
+                and (
+                    SELECT COALESCE(SUM(estoque), 0)
+                    FROM brindes
+                    WHERE tipo = 'padrao'
+                    and custo_pontos = 350
+                    ) > 160 
+                and custo_pontos <= :pontos 
+                and tipo = 'padrao'
+                and custo_pontos = 350
+
+                union
+
+                select 
+                    * 
+                from 
+                    brindes 
+                where 
+                    estoque > 0
+                and (
+                    SELECT COALESCE(SUM(estoque), 0)
+                    FROM brindes
+                    WHERE tipo = 'padrao'
+                    and custo_pontos = 450
+                    ) > 20 
+                and custo_pontos <= :pontos 
+                and tipo = 'padrao'
+                and custo_pontos = 450
+
+                union
+
+                select 
+                    * 
+                from 
+                    brindes 
+                where 
+                    estoque > 0
+                and (
+                    SELECT COALESCE(SUM(estoque), 0)
+                    FROM brindes
+                    WHERE tipo = 'padrao'
+                    and custo_pontos = 600
+                    ) > 8 
+                and custo_pontos <= :pontos 
+                and tipo = 'padrao'
+                and custo_pontos = 600
 
                 union
 
@@ -621,6 +683,11 @@ class DatabaseManager:
                     brindes
                 where
                     tipo = 'gratis'
+                and (
+                    SELECT COALESCE(SUM(estoque), 0)
+                    FROM brindes
+                    WHERE tipo = 'gratis'
+                    ) > 640
                 and (SELECT
                         EXISTS(SELECT 1 FROM interacoes_lounge_vip WHERE visitante_id = :visitante_id) AND 
                         EXISTS(SELECT 1 FROM interacoes_entrada_juquita WHERE visitante_id = :visitante_id) AND
@@ -631,6 +698,19 @@ class DatabaseManager:
                         EXISTS(SELECT 1 FROM interacoes_estacionamento WHERE visitante_id = :visitante_id) AND
                         EXISTS(SELECT 1 FROM interacoes_saida_juquita WHERE visitante_id = :visitante_id) AND
                         EXISTS(SELECT 1 FROM interacoes_saida_nps WHERE visitante_id = :visitante_id)) = true
+                and not exists (
+                    select 1
+                    from resgates r,
+                        brindes b
+                    where r.brinde_id = b.id
+                    and visitante_id = :visitante_id
+                    and b.tipo = 'gratis'
+                )
+                and (
+                    SELECT pontos_atuais
+                    FROM users
+                    WHERE id = :visitante_id
+                    ) >= 70
 
                 union
 
@@ -640,10 +720,26 @@ class DatabaseManager:
                     brindes 
                 where 
                     tipo = 'periodo'
+                and (
+                    SELECT COALESCE(SUM(estoque), 0)
+                    FROM brindes
+                    WHERE tipo = 'periodo'
+                    ) > 200
                 and exists (
-                    SELECT 1 FROM users WHERE id = :visitante_id AND DATE(created_at) BETWEEN '2026-09-19' AND '2026-09-22'
+                            SELECT 1 
+                            FROM users 
+                            WHERE id = :visitante_id 
+                                AND DATE(created_at) BETWEEN '2026-09-19' AND '2026-09-22'
+                        )
+                and not exists (
+                    select 1
+                    from resgates r,
+                        brindes b
+                    where r.brinde_id = b.id
+                    and visitante_id = :visitante_id
+                    and b.tipo = 'periodo'
                 )
-                order by nome
+                order by tipo, custo_pontos
             """)
 
             with self.engine.connect() as conn:

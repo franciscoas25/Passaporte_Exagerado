@@ -77,7 +77,7 @@ margin:30px 0;
 Guarde esse código. Ele será utilizado para consultar seus pontos durante o evento.
 </p>
 
-<b style="font-size: 16px;">Vá até o evento de 23 a 27/09 e resgate seu brinde. O estoque de brindes é limitado, o resgate está sujeito à disponibilidade do estoque.</b>
+<b style="font-size: 16px;">Leia os QRCodes espalhados pelo evento e responda aos questionários para acumular pontos e trocar por brindes.</b>
 
 <hr style="border:none;border-top:1px solid #eee;margin:35px 0;">
 
