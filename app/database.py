@@ -638,7 +638,7 @@ class DatabaseManager:
                     FROM brindes
                     WHERE tipo = 'padrao'
                     and custo_pontos = 200
-                    ) > 80 
+                    ) > 0 
                 and custo_pontos <= :pontos 
                 and tipo = 'padrao'
                 and custo_pontos = 200
@@ -656,7 +656,7 @@ class DatabaseManager:
                     FROM brindes
                     WHERE tipo = 'padrao'
                     and custo_pontos = 350
-                    ) > 40 
+                    ) > 0 
                 and custo_pontos <= :pontos 
                 and tipo = 'padrao'
                 and custo_pontos = 350
@@ -674,7 +674,7 @@ class DatabaseManager:
                     FROM brindes
                     WHERE tipo = 'padrao'
                     and custo_pontos = 450
-                    ) > 5 
+                    ) > 0 
                 and custo_pontos <= :pontos 
                 and tipo = 'padrao'
                 and custo_pontos = 450
@@ -692,7 +692,7 @@ class DatabaseManager:
                     FROM brindes
                     WHERE tipo = 'padrao'
                     and custo_pontos = 600
-                    ) > 2 
+                    ) > 0 
                 and custo_pontos <= :pontos 
                 and tipo = 'padrao'
                 and custo_pontos = 600
@@ -709,7 +709,7 @@ class DatabaseManager:
                     SELECT COALESCE(SUM(estoque), 0)
                     FROM brindes
                     WHERE tipo = 'gratis'
-                    ) > 160
+                    ) > 0
                 and (SELECT
                         EXISTS(SELECT 1 FROM interacoes_lounge_vip WHERE visitante_id = :visitante_id) AND 
                         EXISTS(SELECT 1 FROM interacoes_entrada_juquita WHERE visitante_id = :visitante_id) AND
@@ -744,7 +744,7 @@ class DatabaseManager:
                     SELECT COALESCE(SUM(estoque), 0)
                     FROM brindes
                     WHERE tipo = 'periodo'
-                    ) > 50
+                    ) > 0
                 and exists (
                             SELECT 1 
                             FROM users 
