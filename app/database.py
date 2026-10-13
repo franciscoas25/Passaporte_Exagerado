@@ -453,6 +453,7 @@ class DatabaseManager:
                                 "feedback": feedback,
                                 "sorteio_bike": sorteio_bike
                             })
+                            self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)
                         logger.info(f"NPS registrado para visitante {visitante_id}.")
                         return "ok"
                     except IntegrityError:
