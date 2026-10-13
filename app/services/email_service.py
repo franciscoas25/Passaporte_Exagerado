@@ -79,6 +79,8 @@ Guarde esse código. Ele será utilizado para consultar seus pontos durante o ev
 
 <b style="font-size: 16px;">Leia os QRCodes espalhados pelo evento e responda aos questionários para acumular pontos e trocar por brindes.</b>
 
+<br/><br/>
+
 <b>*Brindes limitados, sujeito à disponibilidade de estoque por dia.</b>
 
 <hr style="border:none;border-top:1px solid #eee;margin:35px 0;">
