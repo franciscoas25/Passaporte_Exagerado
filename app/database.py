@@ -137,16 +137,17 @@ class DatabaseManager:
         query = text("UPDATE users SET pontos_atuais = pontos_atuais + :pontos WHERE id = :visitante_id")
         conn.execute(query, {"visitante_id": visitante_id, "pontos": pontos})
 
-    def registrar_entrada_juquita(self, visitante_id: int, ficou_sabendo_onde: str) -> str:
+    def registrar_entrada_juquita(self, visitante_id: int, faixa_etaria: str, ficou_sabendo_onde: str) -> str:
         """Retorna 'ok', 'duplicado' ou 'erro'."""
         query = text("""
-            INSERT INTO interacoes_entrada_juquita (visitante_id, ficou_sabendo_onde)
-            VALUES (:visitante_id, :ficou_sabendo_onde)
+            INSERT INTO interacoes_entrada_juquita (visitante_id, faixa_etaria, ficou_sabendo_onde)
+            VALUES (:visitante_id, :faixa_etaria, :ficou_sabendo_onde)
         """)
         try:
             with self.engine.begin() as conn:
                 conn.execute(query, {
                     "visitante_id": visitante_id,
+                    "faixa_etaria": faixa_etaria,
                     "ficou_sabendo_onde": ficou_sabendo_onde
                 })
                 self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)
@@ -319,16 +320,18 @@ class DatabaseManager:
             logger.error(f"Erro ao registrar formulário Tudão: {e}")
             return "erro"            
 
-    def registrar_boas_vindas(self, visitante_id: int, regiao: str) -> str:
+    def registrar_boas_vindas(self, visitante_id: int, quem_eh_voce: str, qual_foco: str, regiao: str) -> str:
             """Retorna 'ok', 'duplicado' ou 'erro'."""
             query = text("""
-                INSERT INTO interacoes_boas_vindas (visitante_id, regiao)
-                VALUES (:visitante_id, :regiao)
+                INSERT INTO interacoes_boas_vindas (visitante_id, quem_eh_voce, qual_foco, regiao)
+                VALUES (:visitante_id, :quem_eh_voce, :qual_foco, :regiao)
             """)
             try:
                 with self.engine.begin() as conn:
                     conn.execute(query, {
                         "visitante_id": visitante_id,
+                        "quem_eh_voce": quem_eh_voce,
+                        "qual_foco": qual_foco,
                         "regiao": regiao
                     })
                     self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)
@@ -476,16 +479,16 @@ class DatabaseManager:
         with self.engine.connect() as conn:
             resultado = conn.execute(query, {"id": visitante_id}).mappings().fetchone()
         return {
-            "Entrada Juquita": resultado["entrada_juquita"],
-            "Lounge VIP": resultado["lounge_vip"],
-            "Acao Guerrilha": resultado["acao_guerrilha"],
-            "Boas Vindas": resultado["boas_vindas"],
-            "Cenografia": resultado["cenografia"],
-            "Dentro Lojas": resultado["dentro_lojas"],
-            "Corredor 2º piso": resultado["estacionamento"],
-            "Rampa 2º piso": resultado["saida_juquita"],
-            "NPS": resultado["saida_nps"],
-            "Tudao": resultado["tudao"],
+            "TOTEM 2": resultado["lounge_vip"],
+            "TOTEM 3": resultado["boas_vindas"],
+            "TOTEM 4": resultado["cenografia"],
+            "TOTEM 5 (Frente)": resultado["entrada_juquita"],
+            "TOTEM 5 (Verso)": resultado["dentro_lojas"],
+            "TOTEM 6": resultado["estacionamento"],
+            "TOTEM 7": resultado["saida_juquita"],
+            "TOTEM 8": resultado["saida_nps"]            
+            #"Acao Guerrilha": resultado["acao_guerrilha"],
+            #"Tudao": resultado["tudao"],
         }
 
     def buscar_formularios_respondidos_gratis(self, visitante_id: int) -> dict[str, bool]:

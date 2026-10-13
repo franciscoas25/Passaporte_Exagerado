@@ -19,8 +19,9 @@ def submit_saida_nps(
     id_public: str = Form(...),
     quanto_recomenda: int = Form(..., ge=0, le=10),
     maior_destaque: str = Form(...),
-    te_vejo_proxima_edicao: str = Form(...),
-    feedback: Optional[str] = Form(None)
+    te_vejo_proxima_edicao: str = Form(...),    
+    feedback: Optional[str] = Form(None),
+    sorteio_bike: Optional[str] = Form(None)
 ):
     visitante = db.buscar_por_id_public(id_public.strip().upper())
 
@@ -35,7 +36,8 @@ def submit_saida_nps(
         quanto_recomenda=quanto_recomenda,
         maior_destaque=maior_destaque,
         te_vejo_proxima_edicao=te_vejo_proxima_edicao,
-        feedback=feedback
+        feedback=feedback,
+        sorteio_bike=sorteio_bike
     )
 
     if resultado == "ok":

@@ -16,6 +16,8 @@ def form_boas_vindas(request: Request):
 def submit_boas_vindas(
     request: Request,
     id_public: str = Form(...),
+    quem_eh_voce: str = Form(...),
+    qual_foco: str = Form(...),
     regiao: str = Form(...),
 ):
     visitante = db.buscar_por_id_public(id_public.strip().upper())
@@ -28,6 +30,8 @@ def submit_boas_vindas(
 
     resultado = db.registrar_boas_vindas(
         visitante_id=visitante["id"],
+        quem_eh_voce=quem_eh_voce,
+        qual_foco=qual_foco,
         regiao=regiao,
     )
 
