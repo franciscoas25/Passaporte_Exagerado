@@ -159,17 +159,17 @@ class DatabaseManager:
             logger.error(f"Erro ao registrar Entrada Juquita: {e}")
             return "erro"
 
-    def registrar_vip_lounge(self, visitante_id: int, prioridade: str, quantas_sacolas: str) -> str:
+    def registrar_vip_lounge(self, visitante_id: int, oque_trouxe: str, quantas_sacolas: str) -> str:
             """Retorna 'ok', 'duplicado' ou 'erro'."""
             query = text("""
-                INSERT INTO interacoes_lounge_vip (visitante_id, prioridade, quantas_sacolas)
-                VALUES (:visitante_id, :prioridade, :quantas_sacolas)
+                INSERT INTO interacoes_lounge_vip (visitante_id, oque_trouxe, quantas_sacolas)
+                VALUES (:visitante_id, :oque_trouxe, :quantas_sacolas)
             """)
             try:
                 with self.engine.begin() as conn:
                     conn.execute(query, {
                         "visitante_id": visitante_id,
-                        "prioridade": prioridade,
+                        "oque_trouxe": oque_trouxe,
                         "quantas_sacolas": quantas_sacolas,
                     })
                     self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)

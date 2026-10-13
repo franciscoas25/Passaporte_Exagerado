@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS interacoes_entrada_juquita (
 CREATE TABLE IF NOT EXISTS interacoes_lounge_vip (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
-    prioridade VARCHAR(50) NOT NULL,
+    oque_trouxe VARCHAR(50) NOT NULL,
     quantas_sacolas VARCHAR(50) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
