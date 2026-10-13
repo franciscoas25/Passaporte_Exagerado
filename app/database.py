@@ -182,18 +182,18 @@ class DatabaseManager:
                 logger.error(f"Erro ao registrar Vip Lounge: {e}")
                 return "erro"
 
-    def registrar_acao_guerrilha(self, visitante_id: int, oque_trouxe: str, regiao: str) -> str:
+    def registrar_acao_guerrilha(self, visitante_id: int, oque_trouxe: str, quantas_sacolas: str) -> str:
         """Retorna 'ok', 'duplicado' ou 'erro'."""
         query = text("""
-            INSERT INTO interacoes_acao_guerrilha (visitante_id, oque_trouxe, regiao)
-            VALUES (:visitante_id, :oque_trouxe, :regiao)
+            INSERT INTO interacoes_acao_guerrilha (visitante_id, oque_trouxe, quantas_sacolas)
+            VALUES (:visitante_id, :oque_trouxe, :quantas_sacolas)
         """)
         try:
             with self.engine.begin() as conn:
                 conn.execute(query, {
                     "visitante_id": visitante_id,
                     "oque_trouxe": oque_trouxe,
-                    "regiao": regiao
+                    "quantas_sacolas": quantas_sacolas
                 })
                 #self._somar_pontos(conn, visitante_id, PONTOS_POR_FORMULARIO)
             logger.info(f"Ação Guerrilha registrada para visitante {visitante_id}.")
@@ -434,11 +434,11 @@ class DatabaseManager:
                     logger.error(f"Erro ao registrar Lojas: {e}")
                     return "erro"
 
-    def registrar_saida_nps(self, visitante_id: int, quanto_recomenda: int, maior_destaque: str, te_vejo_proxima_edicao: str, feedback: str) -> str:
+    def registrar_saida_nps(self, visitante_id: int, quanto_recomenda: int, maior_destaque: str, te_vejo_proxima_edicao: str, feedback: str, sorteio_bike: str) -> str:
                     """Retorna 'ok', 'duplicado' ou 'erro'."""
                     query = text("""
-                        INSERT INTO interacoes_saida_nps (visitante_id, quanto_recomenda, maior_destaque, te_vejo_proxima_edicao, feedback)
-                        VALUES (:visitante_id, :quanto_recomenda, :maior_destaque, :te_vejo_proxima_edicao, :feedback)
+                        INSERT INTO interacoes_saida_nps (visitante_id, quanto_recomenda, maior_destaque, te_vejo_proxima_edicao, feedback, sorteio_bike)
+                        VALUES (:visitante_id, :quanto_recomenda, :maior_destaque, :te_vejo_proxima_edicao, :feedback, :sorteio_bike)
                     """)
                     try:
                         with self.engine.begin() as conn:
@@ -447,7 +447,8 @@ class DatabaseManager:
                                 "quanto_recomenda": quanto_recomenda,
                                 "maior_destaque": maior_destaque,
                                 "te_vejo_proxima_edicao": te_vejo_proxima_edicao,
-                                "feedback": feedback
+                                "feedback": feedback,
+                                "sorteio_bike": sorteio_bike
                             })
                         logger.info(f"NPS registrado para visitante {visitante_id}.")
                         return "ok"
@@ -633,15 +634,9 @@ class DatabaseManager:
                     brindes 
                 where 
                     estoque > 0
-                and (
-                    SELECT COALESCE(SUM(estoque), 0)
-                    FROM brindes
-                    WHERE tipo = 'padrao'
-                    and custo_pontos = 200
-                    ) > 0 
                 and custo_pontos <= :pontos 
                 and tipo = 'padrao'
-                and custo_pontos = 200
+                and custo_pontos = 300
 
                 union
 
@@ -651,30 +646,6 @@ class DatabaseManager:
                     brindes 
                 where 
                     estoque > 0
-                and (
-                    SELECT COALESCE(SUM(estoque), 0)
-                    FROM brindes
-                    WHERE tipo = 'padrao'
-                    and custo_pontos = 350
-                    ) > 0 
-                and custo_pontos <= :pontos 
-                and tipo = 'padrao'
-                and custo_pontos = 350
-
-                union
-
-                select 
-                    * 
-                from 
-                    brindes 
-                where 
-                    estoque > 0
-                and (
-                    SELECT COALESCE(SUM(estoque), 0)
-                    FROM brindes
-                    WHERE tipo = 'padrao'
-                    and custo_pontos = 450
-                    ) > 0 
                 and custo_pontos <= :pontos 
                 and tipo = 'padrao'
                 and custo_pontos = 450
@@ -687,15 +658,21 @@ class DatabaseManager:
                     brindes 
                 where 
                     estoque > 0
-                and (
-                    SELECT COALESCE(SUM(estoque), 0)
-                    FROM brindes
-                    WHERE tipo = 'padrao'
-                    and custo_pontos = 600
-                    ) > 0 
                 and custo_pontos <= :pontos 
                 and tipo = 'padrao'
                 and custo_pontos = 600
+
+                union
+
+                select 
+                    * 
+                from 
+                    brindes 
+                where 
+                    estoque > 0
+                and custo_pontos <= :pontos 
+                and tipo = 'padrao'
+                and custo_pontos = 900
 
                 union
 
@@ -704,12 +681,8 @@ class DatabaseManager:
                 from
                     brindes
                 where
-                    tipo = 'gratis'
-                and (
-                    SELECT COALESCE(SUM(estoque), 0)
-                    FROM brindes
-                    WHERE tipo = 'gratis'
-                    ) > 0
+                    estoque > 0
+                and tipo = 'gratis'
                 and (SELECT
                         EXISTS(SELECT 1 FROM interacoes_lounge_vip WHERE visitante_id = :visitante_id) AND 
                         EXISTS(SELECT 1 FROM interacoes_entrada_juquita WHERE visitante_id = :visitante_id) AND
@@ -730,35 +703,7 @@ class DatabaseManager:
                     SELECT pontos_atuais
                     FROM users
                     WHERE id = :visitante_id
-                    ) >= 70
-
-                union
-
-                select 
-                    * 
-                from 
-                    brindes 
-                where 
-                    tipo = 'periodo'
-                and (
-                    SELECT COALESCE(SUM(estoque), 0)
-                    FROM brindes
-                    WHERE tipo = 'periodo'
-                    ) > 0
-                and exists (
-                            SELECT 1 
-                            FROM users 
-                            WHERE id = :visitante_id 
-                                AND DATE(created_at) BETWEEN '2026-09-19' AND '2026-09-22'
-                        )
-                and not exists (
-                    select 1
-                    from resgates r,
-                        brindes b
-                    where r.brinde_id = b.id
-                    and visitante_id = :visitante_id
-                    and b.tipo = 'periodo'
-                )
+                    ) >= 80
                 order by tipo, custo_pontos
             """)
 

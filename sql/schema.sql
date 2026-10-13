@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS interacoes_acao_guerrilha (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     visitante_id INT NOT NULL REFERENCES users(id) UNIQUE,
     oque_trouxe VARCHAR(50) NOT NULL,
-    regiao VARCHAR(50) NOT NULL,
+    quantas_sacolas VARCHAR(50) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -120,5 +120,6 @@ CREATE TABLE IF NOT EXISTS interacoes_saida_nps (
     maior_destaque VARCHAR(50) NOT NULL,
     te_vejo_proxima_edicao VARCHAR(50) NOT NULL,
     feedback VARCHAR(100),
+    sorteio_bike VARCHAR(100),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
