@@ -503,6 +503,10 @@ class DatabaseManager:
                 """)
         with self.engine.connect() as conn:
             resultado = conn.execute(query, {"id": visitante_id}).fetchone()
+        
+        if resultado is None:
+            return None
+        
         return resultado[0]
 
     def buscar_formularios_respondidos_gratis(self, visitante_id: int) -> dict[str, bool]:
