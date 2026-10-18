@@ -5,6 +5,28 @@
 {% block content %}
 {% if sucesso and usuario %}
 <h4 class="mb-3">👤 {{ usuario.usuario_nome }}</h4>
+<h4 class="mb-3">
+    {% if usuario.instagram %}
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="20" height="20"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             style="vertical-align: middle;">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/>
+        </svg>
+        {{ usuario.instagram }}
+    {% else %}
+        <span class="text-muted">
+            Instagram não informado
+        </span>
+    {% endif %}
+</h4>
 
 <div class="text-center my-4 p-3 bg-light rounded">
     <p class="text-muted small mb-1">Saldo de pontos</p>

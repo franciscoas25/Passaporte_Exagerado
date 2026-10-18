@@ -492,6 +492,19 @@ class DatabaseManager:
             #"Tudao": resultado["tudao"],
         }
 
+    def buscar_instagram_usuario(self, visitante_id: int) -> str:
+        query = text("""
+                    select
+                        sorteio_bike
+                    from
+                        interacoes_saida_nps
+                    where
+                        visitante_id = :id
+                """)
+        with self.engine.connect() as conn:
+            resultado = conn.execute(query, {"id": visitante_id}).fetchone()
+        return resultado[0]
+
     def buscar_formularios_respondidos_gratis(self, visitante_id: int) -> dict[str, bool]:
             query = text("""
                 SELECT
@@ -584,6 +597,8 @@ class DatabaseManager:
 
         formularios = self.buscar_formularios_respondidos(usuario["id"])
 
+        instagram = self.buscar_instagram_usuario(usuario["id"])
+
         return {
             "usuario_id": usuario["id"],
             "usuario_nome": usuario["nome"],
@@ -602,7 +617,8 @@ class DatabaseManager:
                 }
                 for resgate in resgates
             ],
-            "formularios": formularios
+            "formularios": formularios,
+            "instagram": instagram
         }
 
     def inserir_brinde(self, nome: str, custo_pontos: int, estoque: int, tipo: str) -> dict | None:
